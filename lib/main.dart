@@ -1,3 +1,4 @@
+import 'package:communitygetandpost/di.dart';
 import 'package:communitygetandpost/view/community_detail_page.dart';
 import 'package:communitygetandpost/view/community_list_page.dart';
 import 'package:communitygetandpost/view/login_page.dart';
@@ -5,9 +6,12 @@ import 'package:communitygetandpost/view/my_page.dart';
 import 'package:communitygetandpost/view/new_post_page.dart';
 import 'package:communitygetandpost/view/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: globalProviders,
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
