@@ -6,10 +6,13 @@ import 'package:communitygetandpost/view/my_page.dart';
 import 'package:communitygetandpost/view/new_post_page.dart';
 import 'package:communitygetandpost/view/screen/home_screen.dart';
 import 'package:communitygetandpost/view/screen/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: globalProviders,
       child: MyApp()));
@@ -24,16 +27,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:HomeScreen(),
-      // FutureBuilder(
-      //   future: Provider.of<LoginPageController>(context, listen: false).isSignIn(),
-      //     builder: (context, AsyncSnapshot<bool> snapshot){
-      //     if(snapshot.hasData && snapshot.data){
-      //       return HomeScreen();
-      //     }else{
-      //       return LoginScreen();
-      //     }
-      //     }),
+      home:
+      // HomeScreen(),
+      FutureBuilder(
+        future: Provider.of<LoginPageController>(context, listen: false).isSignIn(),
+          builder: (context, AsyncSnapshot<bool> snapshot){
+          if(snapshot.hasData && snapshot.data){
+            return HomeScreen();
+          }else{
+            return LoginScreen();
+          }
+          }),
       // HomeScreen(),
       routes: {
         'my_page':(BuildContext context) => MyPage(),

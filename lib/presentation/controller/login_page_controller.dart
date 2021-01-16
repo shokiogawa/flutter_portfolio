@@ -8,4 +8,8 @@ class LoginPageController {
   Future<bool> isSignIn() async{
     return await userRepository.isSignIn();
   }
+
+  Future<void>signInGoogle()async{
+    await userRepository.signInGoogle();
+  }
 }
