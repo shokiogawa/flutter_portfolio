@@ -21,10 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Community"),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Community"),
+      //   centerTitle: true,
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index){
