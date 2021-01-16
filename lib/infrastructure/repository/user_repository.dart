@@ -1,5 +1,6 @@
 import 'package:communitygetandpost/domain/value_object/user.dart' as user;
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
+import 'package:communitygetandpost/secret.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
@@ -16,8 +17,8 @@ class UserRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TwitterLogin _twitterLogin = TwitterLogin(
-      consumerKey: "Gz1PdCES90INVx6yvHmDdoVUl",
-      consumerSecret: "UwpjhKwbfdagqfK2g1g3noqduVYn6oytnpRNNCJGIPaPOX11Mr");
+      consumerKey: apiKey,
+      consumerSecret: secretKey);
 
   Future<bool> isSignIn() async {
     final firebaseUser = _auth.currentUser;
