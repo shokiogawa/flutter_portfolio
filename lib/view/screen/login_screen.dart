@@ -1,4 +1,6 @@
+import 'package:communitygetandpost/presentation/controller/login_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -20,7 +22,10 @@ class LoginPageContainer extends StatelessWidget {
       child: Column(
         children: [
           RaisedButton(
-            onPressed: null,
+            onPressed: () => Provider.of<LoginPageController>(context,
+                    listen: false)
+                .signInGoogle()
+                .then((value) => Navigator.pushNamed(context, "/home_screen")),
             color: Colors.blueGrey,
             child: Text("Googleログイン"),
           ),

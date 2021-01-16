@@ -16,10 +16,12 @@ class DatabaseManager{
     return false;
   }
 
+  //新規ユーザーはデータベースに保存
   Future<void> insertUserToDb(User user) async{
     await _db.collection("users").doc(user.userId).set(user.toMap());
   }
 
+  //データベースからユーザー情報を取得
   Future<User> getUserInfoFromDb(String uid) async{
     final query = await _db.collection("users").where("userId", isEqualTo: uid).get();
     return User.fromMap(query.docs[0].data());
