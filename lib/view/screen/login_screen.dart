@@ -26,7 +26,8 @@ class LoginPageContainer extends StatelessWidget {
                 Provider.of<LoginPageController>(context, listen: false)
                     .signInGoogle()
                     .then((value) {
-              Navigator.of(context).pushNamed("/home_screen");
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/home_screen", (route) => false);
             }),
             color: Colors.blueGrey,
             child: Text("Googleログイン"),
@@ -35,8 +36,9 @@ class LoginPageContainer extends StatelessWidget {
               onPressed: () =>
                   Provider.of<LoginPageController>(context, listen: false)
                       .signInTwitter()
-                      .then((value) =>
-                          Navigator.of(context).pushNamed("/home_screen")),
+                      .then((value) => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              "/home_screen", (routes) => false)),
               color: Colors.amber,
               child: Text("Twitterログイン"))
         ],

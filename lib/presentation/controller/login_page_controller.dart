@@ -16,4 +16,8 @@ class LoginPageController {
   Future<void> signInTwitter()async{
     await userRepository.signInTwitter();
   }
+
+  Future<void> logOut()async{
+    await userRepository.signOut();
+  }
 }

@@ -20,6 +20,10 @@ class UserRepository {
       consumerKey: apiKey,
       consumerSecret: secretKey);
 
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
   Future<bool> isSignIn() async {
     final firebaseUser = _auth.currentUser;
     if (firebaseUser != null) {
