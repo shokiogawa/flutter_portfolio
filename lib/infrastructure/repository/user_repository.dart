@@ -2,6 +2,7 @@ import 'package:communitygetandpost/domain/value_object/user.dart' as user;
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
@@ -14,6 +15,9 @@ class UserRepository {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final TwitterLogin _twitterLogin = TwitterLogin(
+      consumerKey: "Gz1PdCES90INVx6yvHmDdoVUl",
+      consumerSecret: "UwpjhKwbfdagqfK2g1g3noqduVYn6oytnpRNNCJGIPaPOX11Mr");
 
   Future<bool> isSignIn() async {
     final firebaseUser = _auth.currentUser;
@@ -24,6 +28,7 @@ class UserRepository {
     return false;
   }
 
+  //googleサインイン
   Future<bool> signInGoogle() async {
     try {
       GoogleSignInAccount signInAccount = await _googleSignIn.signIn();
@@ -54,6 +59,33 @@ class UserRepository {
       return true;
     } catch (error) {}
     return false;
+  }
+
+  //Twitterサインイン
+  Future<bool> signInTwitter() async {
+    try {
+      TwitterLoginResult loginResult = await _twitterLogin.authorize();
+      final TwitterSession twitterSession = loginResult.session;
+      final auth.AuthCredential twitterAuthCredential =
+          auth.TwitterAuthProvider.credential(
+              accessToken: twitterSession.token, secret: twitterSession.secret);
+      //twitterのcredentialでログイン
+      final firebaseUser =
+          (await _auth.signInWithCredential(twitterAuthCredential)).user;
+      if (firebaseUser == null) {
+        return false;
+      }
+      final isUserExistedInDb =
+          await databaseManager.searchUserInDb(firebaseUser);
+      if (!isUserExistedInDb) {
+        await databaseManager.insertUserToDb(_convertUser(firebaseUser));
+      }
+      currentUser = await databaseManager.getUserInfoFromDb(firebaseUser.uid);
+      return true;
+    } catch (error) {
+      print("user_repository:twitterのsignIn" + error);
+      return false;
+    }
   }
 
   _convertUser(auth.User firebaseUser) {

@@ -12,4 +12,8 @@ class LoginPageController {
   Future<void>signInGoogle()async{
     await userRepository.signInGoogle();
   }
+
+  Future<void> signInTwitter()async{
+    await userRepository.signInTwitter();
+  }
 }

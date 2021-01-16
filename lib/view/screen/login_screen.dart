@@ -22,15 +22,23 @@ class LoginPageContainer extends StatelessWidget {
       child: Column(
         children: [
           RaisedButton(
-            onPressed: () => Provider.of<LoginPageController>(context,
-                    listen: false)
-                .signInGoogle()
-                .then((value) => Navigator.pushNamed(context, "/home_screen")),
+            onPressed: () =>
+                Provider.of<LoginPageController>(context, listen: false)
+                    .signInGoogle()
+                    .then((value) {
+              Navigator.of(context).pushNamed("/home_screen");
+            }),
             color: Colors.blueGrey,
             child: Text("Googleログイン"),
           ),
           RaisedButton(
-              onPressed: null, color: Colors.amber, child: Text("Twitterログイン"))
+              onPressed: () =>
+                  Provider.of<LoginPageController>(context, listen: false)
+                      .signInTwitter()
+                      .then((value) =>
+                          Navigator.of(context).pushNamed("/home_screen")),
+              color: Colors.amber,
+              child: Text("Twitterログイン"))
         ],
       ),
     ));

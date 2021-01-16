@@ -40,12 +40,12 @@ class MyApp extends StatelessWidget {
           }),
       // HomeScreen(),
       routes: {
-        'home_screen':(BuildContext context) => HomeScreen(),
-        'my_page':(BuildContext context) => MyPage(),
-        'community_list_page':(BuildContext context) => CommunityListPage(),
-        'community_detail_page': (BuildContext context) => CommunityDetailPage(),
-        'login_page': (BuildContext context) => LoginScreen(),
-        'new_post_page':(BuildContext context) => NewPostPage()
+        '/home_screen':(BuildContext context) => HomeScreen(),
+        '/my_page':(BuildContext context) => MyPage(),
+        '/community_list_page':(BuildContext context) => CommunityListPage(),
+        '/community_detail_page': (BuildContext context) => CommunityDetailPage(),
+        '/login_page': (BuildContext context) => LoginScreen(),
+        '/new_post_page':(BuildContext context) => NewPostPage()
       },
     );
   }
