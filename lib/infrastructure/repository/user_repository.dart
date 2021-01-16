@@ -6,6 +6,7 @@ final DatabaseManager databaseManager;
 UserRepository(this.databaseManager);
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+
   Future<bool>isSignIn() async{
     final firebaseUser =  _auth.currentUser;
     if (firebaseUser != null){

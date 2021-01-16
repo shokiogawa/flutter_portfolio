@@ -1,10 +1,11 @@
 import 'package:communitygetandpost/di.dart';
+import 'package:communitygetandpost/presentation/controller/login_page_controller.dart';
 import 'package:communitygetandpost/view/community_detail_page.dart';
 import 'package:communitygetandpost/view/community_list_page.dart';
-import 'package:communitygetandpost/view/login_page.dart';
 import 'package:communitygetandpost/view/my_page.dart';
 import 'package:communitygetandpost/view/new_post_page.dart';
 import 'package:communitygetandpost/view/screen/home_screen.dart';
+import 'package:communitygetandpost/view/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,12 +24,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      home:HomeScreen(),
+      // FutureBuilder(
+      //   future: Provider.of<LoginPageController>(context, listen: false).isSignIn(),
+      //     builder: (context, AsyncSnapshot<bool> snapshot){
+      //     if(snapshot.hasData && snapshot.data){
+      //       return HomeScreen();
+      //     }else{
+      //       return LoginScreen();
+      //     }
+      //     }),
+      // HomeScreen(),
       routes: {
         'my_page':(BuildContext context) => MyPage(),
         'community_list_page':(BuildContext context) => CommunityListPage(),
         'community_detail_page': (BuildContext context) => CommunityDetailPage(),
-        'login_page': (BuildContext context) => LoginPage(),
+        'login_page': (BuildContext context) => LoginScreen(),
         'new_post_page':(BuildContext context) => NewPostPage()
       },
     );
