@@ -26,7 +26,7 @@ abstract class ProjectState with _$ProjectState{
 
 class ProjectController extends StateNotifier<ProjectState>{
   final ProjectRepository projectRepository;
-  ProjectController(this.projectRepository): super(ProjectState());
+  ProjectController(this.projectRepository): super(ProjectState(projectOpenTime: DateTime.now()));
 
 
   //フォームのデータをstateに管理。
@@ -34,6 +34,15 @@ class ProjectController extends StateNotifier<ProjectState>{
     state = state.copyWith(projectName: name, projectExplanation: explanation);
     print(state.projectName);
     print(state.projectExplanation);
+  }
+
+  //プロジェクト時刻取得
+  void getDatetime(DateTime dateTime){
+    state = state.copyWith(projectOpenTime: dateTime);
+  }
+
+  void getNumber(int number){
+    state = state.copyWith(participantNumber: number);
   }
 
   //画像を取得。
