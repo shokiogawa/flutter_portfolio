@@ -4,6 +4,7 @@ import 'package:communitygetandpost/view/community_detail_page.dart';
 import 'package:communitygetandpost/view/community_list_page.dart';
 import 'package:communitygetandpost/view/my_page.dart';
 import 'package:communitygetandpost/view/new_post_page.dart';
+import 'package:communitygetandpost/view/new_post_page_next.dart';
 import 'package:communitygetandpost/view/screen/home_screen.dart';
 import 'package:communitygetandpost/view/screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         '/community_list_page':(BuildContext context) => CommunityListPage(),
         '/community_detail_page': (BuildContext context) => CommunityDetailPage(),
         '/login_page': (BuildContext context) => LoginScreen(),
-        '/new_post_page':(BuildContext context) => NewPostPage()
+        '/new_post_page':(BuildContext context) => NewPostPage(),
+        '/new_post_page_next': (BuildContext context) => NewPostPageNext()
       },
     );
   }
