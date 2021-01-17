@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:firebase_auth/firebase_auth.dart'as auth;
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseManager{
   //cloud_firestoreのなかに保存するため、インスタンス作成。
@@ -25,6 +29,20 @@ class DatabaseManager{
   Future<User> getUserInfoFromDb(String uid) async{
     final query = await _db.collection("users").where("userId", isEqualTo: uid).get();
     return User.fromMap(query.docs[0].data());
+  }
+
+  Future<String>uploadImageToStorage(File imageFile, String storageId) async{
+    //storage上のファイルの保存場所のリファレンスを取得。
+    final storageRef = FirebaseStorage.instance.ref().child(storageId);
+    //ファイルをアップロード
+    final uploadProject = storageRef.putFile(imageFile);
+    //ファイルのアップロードが完了したら、ダウンロードURLを取得。
+    return await uploadProject.then((value) => value.ref.getDownloadURL());
+  }
+
+  //project1データ保存
+  Future<void> insertProject(Project project) async{
+    await _db.collection("projects").doc(project.projectId).set(project.toMap());
   }
 
 }
