@@ -32,8 +32,11 @@ class ProjectController extends StateNotifier<ProjectState>{
   //フォームのデータをstateに管理。
   void getNameAndExplanation(String name, String explanation){
     state = state.copyWith(projectName: name, projectExplanation: explanation);
+    print(state.projectName);
+    print(state.projectExplanation);
   }
 
+  //画像を取得。
   Future<void> getImage() async{
     print("getimage");
     var image;

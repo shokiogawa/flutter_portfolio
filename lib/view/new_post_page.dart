@@ -6,9 +6,13 @@ import 'package:provider/provider.dart';
 
 class NewPostPage extends StatelessWidget {
   final TextEditingController projectNameController = TextEditingController();
-  final TextEditingController projectExplanationController = TextEditingController();
+  final TextEditingController projectExplanationController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    // final state = Provider.of<ProjectState>(context, listen: false);
+    final controller = Provider.of<ProjectController>(context, listen: false);
     return Scaffold(
       bottomNavigationBar: Container(
         height: 50,
@@ -16,12 +20,18 @@ class NewPostPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: RaisedButton(
-            color: Colors.blueAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
-            ),
-            child: Text("続ける", style: TextStyle(color: Colors.white),),
-              onPressed: (){}),
+              color: Colors.blueAccent,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              child: Text(
+                "プロジェクトのアイコンを設定する。",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                controller.getNameAndExplanation(projectNameController.text,
+                    projectExplanationController.text);
+                // controller.getImage();
+              }),
         ),
       ),
       appBar: AppBar(
@@ -37,25 +47,41 @@ class NewPostPage extends StatelessWidget {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(UserRepository.currentUser.photoUrl),
+                    backgroundImage:
+                        NetworkImage(UserRepository.currentUser.photoUrl),
                     radius: 30,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text("プロジェクトを作成する。", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    child: Text(
+                      "プロジェクトを作成する。",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Text("目指すところが同じ仲間とプロジェクトを成功させよう。")
                 ],
               ),
             ),
-            Container(
-              child: InkWell(
-                onTap: () => Provider.of<ProjectController>(context, listen: false).getImage(),
-                child: CircleAvatar(
-                  backgroundColor: Colors.amber,
-                ),
-              ),
-            ),
+            // Container(
+            //   child: InkWell(
+            //     onTap: () =>
+            //         Provider.of<ProjectController>(context, listen: false)
+            //             .getImage(),
+            //     child: CircleAvatar(
+            //       // Provider.of<ProjectState>(context, listen: false).imageFile;
+            //       backgroundImage:
+            //           Provider.of<ProjectState>(context, listen: false)
+            //                       .imageFile ==
+            //                   null
+            //               ? null
+            //               : FileImage(
+            //                   Provider.of<ProjectState>(context, listen: true)
+            //                       .imageFile),
+            //       backgroundColor: Colors.amber,
+            //     ),
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Padding(
@@ -67,14 +93,20 @@ class NewPostPage extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-                    Text("プロジェクト名", style: TextStyle(color: Colors.black45),),
+                    Text(
+                      "プロジェクト名",
+                      style: TextStyle(color: Colors.black45),
+                    ),
                     TextFormField(
                       controller: projectNameController,
                     ),
                     SizedBox(
                       height: 30,
                     ),
-                    Text("プロジェクトの概要", style: TextStyle(color: Colors.black45),),
+                    Text(
+                      "プロジェクトの概要",
+                      style: TextStyle(color: Colors.black45),
+                    ),
                     TextFormField(
                       maxLines: 5,
                       controller: projectExplanationController,

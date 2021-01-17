@@ -35,6 +35,8 @@ dependencies:
   state_notifier: ^0.6.0
   flutter_state_notifier: ^0.6.1
   image_picker: ^0.6.7+14
+  cached_network_image: ^2.4.1
+
 
 
 
