@@ -30,7 +30,8 @@ class NewPostPage extends StatelessWidget {
               onPressed: () {
                 controller.getNameAndExplanation(projectNameController.text,
                     projectExplanationController.text);
-                Navigator.of(context).pushNamed('/new_post_page_next');
+                controller.getImage().then((value) =>
+                    Navigator.of(context).pushNamed('/new_post_page_next'));
                 // controller.getImage();
               }),
         ),
