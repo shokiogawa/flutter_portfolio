@@ -17,14 +17,14 @@ class _$ProjectStateTearOff {
   _ProjectState call(
       {String projectName,
       String projectExplanation,
-      String imageUrl,
+      File imageFile,
       int participantNumber,
       User hostUser,
       DateTime projectOpenTime}) {
     return _ProjectState(
       projectName: projectName,
       projectExplanation: projectExplanation,
-      imageUrl: imageUrl,
+      imageFile: imageFile,
       participantNumber: participantNumber,
       hostUser: hostUser,
       projectOpenTime: projectOpenTime,
@@ -40,7 +40,7 @@ const $ProjectState = _$ProjectStateTearOff();
 mixin _$ProjectState {
   String get projectName;
   String get projectExplanation;
-  String get imageUrl;
+  File get imageFile;
   int get participantNumber;
   User get hostUser;
   DateTime get projectOpenTime;
@@ -56,7 +56,7 @@ abstract class $ProjectStateCopyWith<$Res> {
   $Res call(
       {String projectName,
       String projectExplanation,
-      String imageUrl,
+      File imageFile,
       int participantNumber,
       User hostUser,
       DateTime projectOpenTime});
@@ -74,7 +74,7 @@ class _$ProjectStateCopyWithImpl<$Res> implements $ProjectStateCopyWith<$Res> {
   $Res call({
     Object projectName = freezed,
     Object projectExplanation = freezed,
-    Object imageUrl = freezed,
+    Object imageFile = freezed,
     Object participantNumber = freezed,
     Object hostUser = freezed,
     Object projectOpenTime = freezed,
@@ -85,7 +85,7 @@ class _$ProjectStateCopyWithImpl<$Res> implements $ProjectStateCopyWith<$Res> {
       projectExplanation: projectExplanation == freezed
           ? _value.projectExplanation
           : projectExplanation as String,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
+      imageFile: imageFile == freezed ? _value.imageFile : imageFile as File,
       participantNumber: participantNumber == freezed
           ? _value.participantNumber
           : participantNumber as int,
@@ -107,7 +107,7 @@ abstract class _$ProjectStateCopyWith<$Res>
   $Res call(
       {String projectName,
       String projectExplanation,
-      String imageUrl,
+      File imageFile,
       int participantNumber,
       User hostUser,
       DateTime projectOpenTime});
@@ -127,7 +127,7 @@ class __$ProjectStateCopyWithImpl<$Res> extends _$ProjectStateCopyWithImpl<$Res>
   $Res call({
     Object projectName = freezed,
     Object projectExplanation = freezed,
-    Object imageUrl = freezed,
+    Object imageFile = freezed,
     Object participantNumber = freezed,
     Object hostUser = freezed,
     Object projectOpenTime = freezed,
@@ -138,7 +138,7 @@ class __$ProjectStateCopyWithImpl<$Res> extends _$ProjectStateCopyWithImpl<$Res>
       projectExplanation: projectExplanation == freezed
           ? _value.projectExplanation
           : projectExplanation as String,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
+      imageFile: imageFile == freezed ? _value.imageFile : imageFile as File,
       participantNumber: participantNumber == freezed
           ? _value.participantNumber
           : participantNumber as int,
@@ -155,7 +155,7 @@ class _$_ProjectState implements _ProjectState {
   _$_ProjectState(
       {this.projectName,
       this.projectExplanation,
-      this.imageUrl,
+      this.imageFile,
       this.participantNumber,
       this.hostUser,
       this.projectOpenTime});
@@ -165,7 +165,7 @@ class _$_ProjectState implements _ProjectState {
   @override
   final String projectExplanation;
   @override
-  final String imageUrl;
+  final File imageFile;
   @override
   final int participantNumber;
   @override
@@ -175,7 +175,7 @@ class _$_ProjectState implements _ProjectState {
 
   @override
   String toString() {
-    return 'ProjectState(projectName: $projectName, projectExplanation: $projectExplanation, imageUrl: $imageUrl, participantNumber: $participantNumber, hostUser: $hostUser, projectOpenTime: $projectOpenTime)';
+    return 'ProjectState(projectName: $projectName, projectExplanation: $projectExplanation, imageFile: $imageFile, participantNumber: $participantNumber, hostUser: $hostUser, projectOpenTime: $projectOpenTime)';
   }
 
   @override
@@ -188,9 +188,9 @@ class _$_ProjectState implements _ProjectState {
             (identical(other.projectExplanation, projectExplanation) ||
                 const DeepCollectionEquality()
                     .equals(other.projectExplanation, projectExplanation)) &&
-            (identical(other.imageUrl, imageUrl) ||
+            (identical(other.imageFile, imageFile) ||
                 const DeepCollectionEquality()
-                    .equals(other.imageUrl, imageUrl)) &&
+                    .equals(other.imageFile, imageFile)) &&
             (identical(other.participantNumber, participantNumber) ||
                 const DeepCollectionEquality()
                     .equals(other.participantNumber, participantNumber)) &&
@@ -207,7 +207,7 @@ class _$_ProjectState implements _ProjectState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(projectName) ^
       const DeepCollectionEquality().hash(projectExplanation) ^
-      const DeepCollectionEquality().hash(imageUrl) ^
+      const DeepCollectionEquality().hash(imageFile) ^
       const DeepCollectionEquality().hash(participantNumber) ^
       const DeepCollectionEquality().hash(hostUser) ^
       const DeepCollectionEquality().hash(projectOpenTime);
@@ -221,7 +221,7 @@ abstract class _ProjectState implements ProjectState {
   factory _ProjectState(
       {String projectName,
       String projectExplanation,
-      String imageUrl,
+      File imageFile,
       int participantNumber,
       User hostUser,
       DateTime projectOpenTime}) = _$_ProjectState;
@@ -231,7 +231,7 @@ abstract class _ProjectState implements ProjectState {
   @override
   String get projectExplanation;
   @override
-  String get imageUrl;
+  File get imageFile;
   @override
   int get participantNumber;
   @override

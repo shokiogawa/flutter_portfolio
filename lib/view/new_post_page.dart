@@ -1,6 +1,8 @@
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
+import 'package:communitygetandpost/presentation/controller/new_post_page_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NewPostPage extends StatelessWidget {
   final TextEditingController projectNameController = TextEditingController();
@@ -44,6 +46,14 @@ class NewPostPage extends StatelessWidget {
                   ),
                   Text("目指すところが同じ仲間とプロジェクトを成功させよう。")
                 ],
+              ),
+            ),
+            Container(
+              child: InkWell(
+                onTap: () => Provider.of<ProjectController>(context, listen: false).getImage(),
+                child: CircleAvatar(
+                  backgroundColor: Colors.amber,
+                ),
               ),
             ),
             Container(
