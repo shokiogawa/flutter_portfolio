@@ -13,6 +13,23 @@ class NewPostPageNext extends StatelessWidget {
       Future(() => controller.getImage());
     }
     return Scaffold(
+      bottomNavigationBar: Container(
+        child: RaisedButton(
+            color: Colors.amber,
+            child: Text("プロジェクトを作成する。"),
+            onPressed: () {
+              Provider.of<ProjectController>(context, listen: false)
+                  .insertProjectToDb()
+                  .then((value){
+                    print("保存成功");
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  })
+                  .catchError((error) {
+                print("エラー");
+              });
+            }),
+      ),
       appBar: AppBar(
         title: Text("新規プロジェクト、詳細決定"),
       ),
@@ -115,14 +132,14 @@ class NewPostPageNext extends StatelessWidget {
                             style: TextStyle(color: Colors.black45),
                           ),
                           DropdownButton<int>(
-                            value: state.participantNumber,
+                              value: state.participantNumber,
                               items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                                   .map((int number) {
                                 return DropdownMenuItem(
                                     value: number,
                                     child: Text(number.toString()));
                               }).toList(),
-                              onChanged: (number){
+                              onChanged: (number) {
                                 controller.getNumber(number);
                               })
                         ],
