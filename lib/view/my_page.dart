@@ -1,3 +1,4 @@
+import 'package:communitygetandpost/presentation/controller/get_project_controller.dart';
 import 'package:communitygetandpost/presentation/controller/login_page_controller.dart';
 import 'package:communitygetandpost/usecase/read_model/category.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,6 +81,9 @@ class MyPage extends StatelessWidget {
                 floating: true,
                 forceElevated: innerBoxScrolled,
                 bottom: TabBar(
+                  onTap: (value){
+                    Provider.of<GetProjectController>(context, listen: false).getProject();
+                  },
                   labelColor: Colors.black,
                   indicatorColor: Colors.blueGrey,
                   indicatorSize: TabBarIndicatorSize.tab,

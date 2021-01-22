@@ -84,7 +84,10 @@ class Project{
       imageUrl: map['imageUrl'] as String,
       imageStoragePath: map['imageStoragePath'] as String,
       participantNumber: map['participantNumber'] as int,
-      postDateTime: map['postDateTime'] as DateTime,
+      // postDateTime: map['postDateTime'] as DateTime,
+      postDateTime: map['postDateTime'] == null
+          ? null
+          : DateTime.parse(map['postDateTime'] as String),
     );
   }
 
@@ -98,7 +101,7 @@ class Project{
       'imageUrl': this.imageUrl,
       'imageStoragePath': this.imageStoragePath,
       'participantNumber': this.participantNumber,
-      'postDateTime': this.postDateTime,
+      'postDateTime': this.postDateTime.toIso8601String(),
     } as Map<String, dynamic>;
   }
 

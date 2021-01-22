@@ -54,12 +54,11 @@ class DatabaseManager {
 
   Future<List<Project>> getProject() async {
     final _query = await _db.collection("projects").get();
-    if(_query.docs.length == 0){
-      return List<Project>();
-    }
-    List<Project> projects;
+    print(_query.docs.length.toString());
+    if(_query.docs.length == 0) return List<Project>();
+    var projects = List<Project>();
     await _db.collection("projects").get().then((values) => values.docs
-        .map((value) => projects.add(Project.fromMap(value.data()))));
+        .forEach((value) => projects.add(Project.fromMap(value.data()))));
     return projects;
   }
 

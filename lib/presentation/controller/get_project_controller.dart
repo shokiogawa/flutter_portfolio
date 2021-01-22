@@ -23,5 +23,6 @@ class GetProjectController extends StateNotifier<GetProjectState>{
     var _allProject;
     _allProject = await projectRepository.getProject();
     state = state.copyWith(allProjects: _allProject);
+    print(state.allProjects);
   }
 }
