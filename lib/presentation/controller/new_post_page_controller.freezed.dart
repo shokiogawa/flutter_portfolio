@@ -45,6 +45,7 @@ mixin _$ProjectState {
   User get hostUser;
   DateTime get projectOpenTime;
 
+  @JsonKey(ignore: true)
   $ProjectStateCopyWith<ProjectState> get copyWith;
 }
 
@@ -212,6 +213,7 @@ class _$_ProjectState implements _ProjectState {
       const DeepCollectionEquality().hash(hostUser) ^
       const DeepCollectionEquality().hash(projectOpenTime);
 
+  @JsonKey(ignore: true)
   @override
   _$ProjectStateCopyWith<_ProjectState> get copyWith =>
       __$ProjectStateCopyWithImpl<_ProjectState>(this, _$identity);
@@ -239,5 +241,6 @@ abstract class _ProjectState implements ProjectState {
   @override
   DateTime get projectOpenTime;
   @override
+  @JsonKey(ignore: true)
   _$ProjectStateCopyWith<_ProjectState> get copyWith;
 }

@@ -37,4 +37,8 @@ class ProjectRepository {
         postDateTime: dateTime);
     await databaseManager.insertProject(project);
   }
+
+  Future<List<Project>>getProject() async{
+    return await databaseManager.getProject();
+  }
 }
