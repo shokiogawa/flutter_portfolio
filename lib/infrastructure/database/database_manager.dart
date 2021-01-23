@@ -64,11 +64,13 @@ class DatabaseManager {
   }
 
   Future<List<Project>> getMyProject() async {
+    print("kokodayo");
     final query = await _db
         .collection("projects")
         .where("userId", isEqualTo: UserRepository.currentUser.userId)
         .get();
     if (query.docs.length == 0) {
+      print("ma");
       return List<Project>();
     }
     var projects = List<Project>();
@@ -79,6 +81,8 @@ class DatabaseManager {
         .then((myProjects) => myProjects.docs.forEach((myProject) {
               projects.add(Project.fromMap(myProject.data()));
             }));
+    print("kokomodayo");
+    return projects;
   }
 
 //全てのプロジェクト取得

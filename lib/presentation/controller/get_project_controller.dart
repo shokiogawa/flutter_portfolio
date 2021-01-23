@@ -22,16 +22,22 @@ class GetProjectController extends StateNotifier<GetProjectState>{
   GetProjectController(this.projectRepository) : super(GetProjectState());
 
   Future<void> getProject()async{
-    var _allProject;
-    _allProject = await projectRepository.getProject();
-    state = state.copyWith(allProjects: _allProject);
-    print(state.allProjects);
+    if (state.allProjects == null){
+      var _allProject;
+      _allProject = await projectRepository.getProject();
+      state = state.copyWith(allProjects: _allProject);
+      print(state.allProjects);
+    }
+
   }
 
   Future<void> getMyProject() async{
-    var myProject;
-    myProject = await projectRepository.getMyProject();
-    state = state.copyWith(myProject: myProject);
-    print(state.myProject);
+    if (state.myProject == null){
+      var myProject;
+      myProject = await projectRepository.getMyProject();
+      state = state.copyWith(myProject: myProject);
+      print(state.myProject);
+    }
+
   }
 }

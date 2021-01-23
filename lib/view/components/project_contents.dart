@@ -53,7 +53,7 @@ class ProjectContents extends StatelessWidget {
               child: Text(
                 project.projectName,
                 style: TextStyle(
-                    color: opacityBlack,
+                    color: Colors.black45,
                     fontSize: 12.0,
                     fontWeight: FontWeight.w600),
                 overflow: TextOverflow.clip,

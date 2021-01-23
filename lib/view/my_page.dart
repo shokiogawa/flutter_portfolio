@@ -5,6 +5,7 @@ import 'package:communitygetandpost/presentation/controller/get_project_controll
 import 'package:communitygetandpost/presentation/controller/login_page_controller.dart';
 import 'package:communitygetandpost/usecase/read_model/category.dart';
 import 'package:communitygetandpost/view/components/project_contents.dart';
+import 'package:communitygetandpost/view/components/project_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     List<Tab>_buildTabs = categories.map((category) => Tab(text: category.categoryName)).toList();
-    List<Widget> _buildWidget = categories.map((category) => ProjectListWidget(category.categoryId)).toList();
+    // List<Widget> _buildWidget = categories.map((category) => ProjectListWidget(category.categoryId)).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -97,6 +98,8 @@ class _MyPageState extends State<MyPage> {
                     if(value == 0){
                       Provider.of<GetProjectController>(context, listen: false)
                           .getProject();
+                    }else{
+                      Provider.of<GetProjectController>(context, listen: false).getMyProject();
                     }
                   },
                   labelColor: Colors.black,
@@ -110,7 +113,10 @@ class _MyPageState extends State<MyPage> {
             ];
           },
           body: TabBarView(children: [
-            ..._buildWidget
+            ProjectListWidget(0, Provider.of<GetProjectState>(context, listen: true).allProjects),
+            ProjectListWidget(0, Provider.of<GetProjectState>(context, listen: true).myProject)
+
+            // ..._buildWidget
           ],),
         ),
       ),
@@ -118,61 +124,4 @@ class _MyPageState extends State<MyPage> {
   }
 }
 
-class ProjectListWidget extends StatefulWidget {
-  final int number;
-  // final Project project;
 
-  ProjectListWidget(this.number);
-
-  @override
-  _ProjectListWidgetState createState() => _ProjectListWidgetState();
-}
-
-class _ProjectListWidgetState extends State<ProjectListWidget> {
-  @override
-  Widget build(BuildContext context) {
-    print(widget.number.toString());
-    final allProject = Provider.of<GetProjectState>(context, listen: true).allProjects;
-    return CustomScrollView(
-      key: PageStorageKey(widget.number),
-      slivers: [
-        SliverPadding(
-          padding: const EdgeInsets.all(10.0),
-          sliver: SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2,
-              childAspectRatio: 0.75,
-            ),
-            delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return ProjectCard(allProject[index]);
-            },
-            childCount: allProject.length,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class ProjectCard extends StatelessWidget {
-  final Project project;
-  ProjectCard(this.project);
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-      },
-      child: Card(
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Stack(children: <Widget>[
-            ProjectContents(project),
-            // ...item.tags.map((tag) => Tag(TagTheme.RED, tag)).toList(),
-          ])),
-    );;
-  }
-}
