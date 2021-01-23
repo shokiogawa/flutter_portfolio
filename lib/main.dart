@@ -1,3 +1,4 @@
+import 'package:communitygetandpost/config.dart';
 import 'package:communitygetandpost/di.dart';
 import 'package:communitygetandpost/presentation/controller/login_page_controller.dart';
 import 'package:communitygetandpost/view/community_detail_page.dart';
@@ -7,11 +8,14 @@ import 'package:communitygetandpost/view/new_post_page.dart';
 import 'package:communitygetandpost/view/new_post_page_next.dart';
 import 'package:communitygetandpost/view/screen/home_screen.dart';
 import 'package:communitygetandpost/view/screen/login_screen.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
+  final flavor =EnumToString.fromString(Flavor.values, const String.fromEnvironment('FLAVOR'));
+  print(flavor.toString());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(

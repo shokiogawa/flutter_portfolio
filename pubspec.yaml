@@ -38,6 +38,7 @@ dependencies:
   cached_network_image: ^2.4.1
   flutter_datetime_picker: ^1.4.0
   uuid: ^2.2.2
+  enum_to_string: ^1.0.14
 
 
 
