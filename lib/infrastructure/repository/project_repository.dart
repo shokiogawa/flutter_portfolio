@@ -41,4 +41,8 @@ class ProjectRepository {
   Future<List<Project>>getProject() async{
     return await databaseManager.getProject();
   }
+
+  Future<List<Project>>getMyProject() async{
+    return await databaseManager.getMyProject();
+  }
 }

@@ -15,10 +15,13 @@ class _$GetProjectStateTearOff {
 
 // ignore: unused_element
   _GetProjectState call(
-      {List<Project> allProjects, List<Project> joinProjects}) {
+      {List<Project> allProjects,
+      List<Project> joinProjects,
+      List<Project> myProject}) {
     return _GetProjectState(
       allProjects: allProjects,
       joinProjects: joinProjects,
+      myProject: myProject,
     );
   }
 }
@@ -31,6 +34,7 @@ const $GetProjectState = _$GetProjectStateTearOff();
 mixin _$GetProjectState {
   List<Project> get allProjects;
   List<Project> get joinProjects;
+  List<Project> get myProject;
 
   @JsonKey(ignore: true)
   $GetProjectStateCopyWith<GetProjectState> get copyWith;
@@ -41,7 +45,10 @@ abstract class $GetProjectStateCopyWith<$Res> {
   factory $GetProjectStateCopyWith(
           GetProjectState value, $Res Function(GetProjectState) then) =
       _$GetProjectStateCopyWithImpl<$Res>;
-  $Res call({List<Project> allProjects, List<Project> joinProjects});
+  $Res call(
+      {List<Project> allProjects,
+      List<Project> joinProjects,
+      List<Project> myProject});
 }
 
 /// @nodoc
@@ -57,6 +64,7 @@ class _$GetProjectStateCopyWithImpl<$Res>
   $Res call({
     Object allProjects = freezed,
     Object joinProjects = freezed,
+    Object myProject = freezed,
   }) {
     return _then(_value.copyWith(
       allProjects: allProjects == freezed
@@ -65,6 +73,8 @@ class _$GetProjectStateCopyWithImpl<$Res>
       joinProjects: joinProjects == freezed
           ? _value.joinProjects
           : joinProjects as List<Project>,
+      myProject:
+          myProject == freezed ? _value.myProject : myProject as List<Project>,
     ));
   }
 }
@@ -76,7 +86,10 @@ abstract class _$GetProjectStateCopyWith<$Res>
           _GetProjectState value, $Res Function(_GetProjectState) then) =
       __$GetProjectStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Project> allProjects, List<Project> joinProjects});
+  $Res call(
+      {List<Project> allProjects,
+      List<Project> joinProjects,
+      List<Project> myProject});
 }
 
 /// @nodoc
@@ -94,6 +107,7 @@ class __$GetProjectStateCopyWithImpl<$Res>
   $Res call({
     Object allProjects = freezed,
     Object joinProjects = freezed,
+    Object myProject = freezed,
   }) {
     return _then(_GetProjectState(
       allProjects: allProjects == freezed
@@ -102,22 +116,26 @@ class __$GetProjectStateCopyWithImpl<$Res>
       joinProjects: joinProjects == freezed
           ? _value.joinProjects
           : joinProjects as List<Project>,
+      myProject:
+          myProject == freezed ? _value.myProject : myProject as List<Project>,
     ));
   }
 }
 
 /// @nodoc
 class _$_GetProjectState implements _GetProjectState {
-  _$_GetProjectState({this.allProjects, this.joinProjects});
+  _$_GetProjectState({this.allProjects, this.joinProjects, this.myProject});
 
   @override
   final List<Project> allProjects;
   @override
   final List<Project> joinProjects;
+  @override
+  final List<Project> myProject;
 
   @override
   String toString() {
-    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects)';
+    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject)';
   }
 
   @override
@@ -129,14 +147,18 @@ class _$_GetProjectState implements _GetProjectState {
                     .equals(other.allProjects, allProjects)) &&
             (identical(other.joinProjects, joinProjects) ||
                 const DeepCollectionEquality()
-                    .equals(other.joinProjects, joinProjects)));
+                    .equals(other.joinProjects, joinProjects)) &&
+            (identical(other.myProject, myProject) ||
+                const DeepCollectionEquality()
+                    .equals(other.myProject, myProject)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(allProjects) ^
-      const DeepCollectionEquality().hash(joinProjects);
+      const DeepCollectionEquality().hash(joinProjects) ^
+      const DeepCollectionEquality().hash(myProject);
 
   @JsonKey(ignore: true)
   @override
@@ -147,12 +169,15 @@ class _$_GetProjectState implements _GetProjectState {
 abstract class _GetProjectState implements GetProjectState {
   factory _GetProjectState(
       {List<Project> allProjects,
-      List<Project> joinProjects}) = _$_GetProjectState;
+      List<Project> joinProjects,
+      List<Project> myProject}) = _$_GetProjectState;
 
   @override
   List<Project> get allProjects;
   @override
   List<Project> get joinProjects;
+  @override
+  List<Project> get myProject;
   @override
   @JsonKey(ignore: true)
   _$GetProjectStateCopyWith<_GetProjectState> get copyWith;

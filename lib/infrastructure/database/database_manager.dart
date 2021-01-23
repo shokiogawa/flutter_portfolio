@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
+import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -55,11 +56,29 @@ class DatabaseManager {
   Future<List<Project>> getProject() async {
     final _query = await _db.collection("projects").get();
     print(_query.docs.length.toString());
-    if(_query.docs.length == 0) return List<Project>();
+    if (_query.docs.length == 0) return List<Project>();
     var projects = List<Project>();
     await _db.collection("projects").get().then((values) => values.docs
         .forEach((value) => projects.add(Project.fromMap(value.data()))));
     return projects;
+  }
+
+  Future<List<Project>> getMyProject() async {
+    final query = await _db
+        .collection("projects")
+        .where("userId", isEqualTo: UserRepository.currentUser.userId)
+        .get();
+    if (query.docs.length == 0) {
+      return List<Project>();
+    }
+    var projects = List<Project>();
+    await _db
+        .collection("projects")
+        .where("userId", isEqualTo: UserRepository.currentUser.userId)
+        .get()
+        .then((myProjects) => myProjects.docs.forEach((myProject) {
+              projects.add(Project.fromMap(myProject.data()));
+            }));
   }
 
 //全てのプロジェクト取得
