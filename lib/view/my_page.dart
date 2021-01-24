@@ -20,7 +20,7 @@ class _MyPageState extends State<MyPage> {
     Category(
         categoryId: 1, categoryName: "おすすめ", categoryEnglish: "recommended"),
     Category(
-        categoryId: 2, categoryName: "参加プロジェクト", categoryEnglish: "myproject"),
+        categoryId: 2, categoryName: "企画プロジェクト", categoryEnglish: "myproject"),
   ];
 
   @override
@@ -94,14 +94,14 @@ class _MyPageState extends State<MyPage> {
                 floating: true,
                 forceElevated: innerBoxScrolled,
                 bottom: TabBar(
-                  onTap: (value) {
-                    if(value == 0){
-                      Provider.of<GetProjectController>(context, listen: false)
-                          .getProject();
-                    }else{
-                      Provider.of<GetProjectController>(context, listen: false).getMyProject();
-                    }
-                  },
+                  // onTap: (value) {
+                  //   if(value == 0){
+                  //     Provider.of<GetProjectController>(context, listen: false)
+                  //         .getProject();
+                  //   }else{
+                  //     Provider.of<GetProjectController>(context, listen: false).getMyProject();
+                  //   }
+                  // },
                   labelColor: Colors.black,
                   indicatorColor: Colors.blueGrey,
                   indicatorSize: TabBarIndicatorSize.tab,
@@ -114,7 +114,7 @@ class _MyPageState extends State<MyPage> {
           },
           body: TabBarView(children: [
             ProjectListWidget(0, Provider.of<GetProjectState>(context, listen: true).allProjects),
-            ProjectListWidget(0, Provider.of<GetProjectState>(context, listen: true).myProject)
+            ProjectListWidget(1, Provider.of<GetProjectState>(context, listen: true).myProject)
 
             // ..._buildWidget
           ],),

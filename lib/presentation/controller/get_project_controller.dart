@@ -19,14 +19,19 @@ abstract class GetProjectState with _$GetProjectState{
 
 class GetProjectController extends StateNotifier<GetProjectState>{
   final ProjectRepository projectRepository;
-  GetProjectController(this.projectRepository) : super(GetProjectState());
+  GetProjectController(this.projectRepository) : super(GetProjectState(myProject: List<Project>()));
 
-  Future<void> getProject()async{
-    if (state.allProjects == null){
+  Future<void> getProject(int number)async{
+    if (number == 0){
       var _allProject;
       _allProject = await projectRepository.getProject();
       state = state.copyWith(allProjects: _allProject);
       print(state.allProjects);
+    }else{
+      var myProject;
+      myProject = await projectRepository.getMyProject();
+      state = state.copyWith(myProject: myProject);
+      print(state.myProject);
     }
 
   }
