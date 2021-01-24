@@ -59,7 +59,7 @@ android {
             resValue "string","app_name","(d)PShare"
             applicationIdSuffix ".debug"
         }
-        production{
+        product{
             dimension "default"
             resValue "string", "app_name","(r)PShare"
         }
