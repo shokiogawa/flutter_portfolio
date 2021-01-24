@@ -1,6 +1,7 @@
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ProjectContents extends StatelessWidget {
   final Project project;
@@ -29,9 +30,11 @@ class ProjectContents extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-          child: Image.network(
-            url,
+          child: CachedNetworkImage(
             fit: BoxFit.cover,
+            imageUrl: url,
+            placeholder: (context, url) => Icon(Icons.ac_unit),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ));
   }
