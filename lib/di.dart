@@ -17,7 +17,7 @@ List<SingleChildWidget> globalProviders = [
 ];
 //他のどのクラスにも依存しないModel
 List<SingleChildWidget> independentModels = [
-  Provider<DatabaseManager>(create: (_) => DatabaseManager())
+  Provider<DatabaseManager>(create: (_) => DatabaseManager()),
 ];
 
 //上で登録したクラスに依存しているModel

@@ -17,8 +17,8 @@ class UserRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TwitterLogin _twitterLogin = TwitterLogin(
-      consumerKey: apiKey,
-      consumerSecret: secretKey);
+      consumerKey: productApiKey,
+      consumerSecret: productSecretKey);
 
   Future<void> signOut() async {
     await _auth.signOut();
