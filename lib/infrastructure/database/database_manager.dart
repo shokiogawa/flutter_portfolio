@@ -79,9 +79,21 @@ class DatabaseManager {
         .then((myProjects) => myProjects.docs.forEach((myProject) {
               projects.add(Project.fromMap(myProject.data()));
             }));
+    print(projects.toString());
     return projects;
   }
 
-//全てのプロジェクト取得
 
+  List<Project> getProjectOnRealtime() {
+    var projects = List<Project>();
+    final snapshot = _db.collection("projects").snapshots();
+    snapshot.listen((snapshot) {
+      final docs = snapshot.docs;
+      docs.forEach((project) {
+        projects.add(Project.fromMap(project.data()));
+      }
+      );
+    });
+    return projects;
+  }
 }

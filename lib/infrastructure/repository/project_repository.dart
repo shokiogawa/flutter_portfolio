@@ -45,4 +45,8 @@ class ProjectRepository {
   Future<List<Project>>getMyProject() async{
     return await databaseManager.getMyProject();
   }
+
+  List<Project>getProjectOnRealTime() {
+    return databaseManager.getProjectOnRealtime();
+  }
 }

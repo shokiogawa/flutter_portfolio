@@ -71,6 +71,7 @@ class ProjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Navigator.of(context).pushNamed('/community_detail_page', arguments: project);
       },
       child: Card(
           shape:

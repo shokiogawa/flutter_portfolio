@@ -30,12 +30,12 @@ class GetProjectController extends StateNotifier<GetProjectState>{
         print(state.allProjects);
       }
     }else{
-      if(state.myProject == null){
+      // if(state.myProject == null){
         var myProject;
         myProject = await projectRepository.getMyProject();
         state = state.copyWith(myProject: myProject);
         print(state.myProject);
-      }
+
 
     }
 
@@ -49,5 +49,9 @@ class GetProjectController extends StateNotifier<GetProjectState>{
       print(state.myProject);
     }
 
+  }
+
+  void getProjectOnRealTime() async{
+    state.allProjects.addAll(projectRepository.getProjectOnRealTime());
   }
 }
