@@ -6,7 +6,10 @@ import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
+// final dataBaseManage = Provider((ref)=> DatabaseManager());
 class DatabaseManager {
   //cloud_firestoreのなかに保存するため、インスタンス作成。
   final FirebaseFirestore _db = FirebaseFirestore.instance;

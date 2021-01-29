@@ -39,6 +39,8 @@ dependencies:
   flutter_datetime_picker: ^1.4.0
   uuid: ^2.2.2
   enum_to_string: ^1.0.14
+  flutter_riverpod: ^0.12.2
+
 
 
 
