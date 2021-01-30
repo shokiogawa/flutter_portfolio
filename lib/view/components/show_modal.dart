@@ -59,7 +59,7 @@ class ShowModal extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
                   radius: 30,
-                  backgroundColor: Theme.of(context).accentColor,
+                  backgroundColor: Colors.amber,
                   child: innerCircle,
                 ),
               )

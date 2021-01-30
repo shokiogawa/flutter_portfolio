@@ -16,7 +16,7 @@ class Button extends StatelessWidget {
     var buttonColor;
     switch (kind) {
       case ButtonTheme.Positive:
-        buttonColor = Colors.red;
+        buttonColor = Colors.amber;
         break;
       case ButtonTheme.Negative:
         buttonColor = Theme.of(context).buttonColor;
@@ -49,7 +49,7 @@ class Button extends StatelessWidget {
             ),
             firstChild: Text(letter,
                 overflow: TextOverflow.clip,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
             secondChild: SpinKitThreeBounce(
               color: Colors.white70,
               size: 24,
