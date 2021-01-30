@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
+import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -51,5 +52,19 @@ class ProjectRepository {
 
   List<Project>getProjectOnRealTime() {
     return databaseManager.getProjectOnRealtime();
+  }
+
+  Future<bool>findJoinMembers(String projectId, int limitedNumber) async{
+    var joinNumber;
+    joinNumber = await databaseManager.findNumberOfMember(projectId, UserRepository.currentUser);
+    if(joinNumber < limitedNumber){
+      await databaseManager.joinMemberToProject(UserRepository.currentUser.userId, projectId);
+      print("成功");
+      return true;
+    }else{
+      print("定員オーバー");
+      return false;
+    }
+
   }
 }

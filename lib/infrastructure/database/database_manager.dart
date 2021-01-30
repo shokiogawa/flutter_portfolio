@@ -99,4 +99,15 @@ class DatabaseManager {
     });
     return projects;
   }
+
+  Future<int>findNumberOfMember(String projectId, User currentUser) async{
+    var userId;
+    // userId = await _db.collection("projects").doc(projectId).collection("members").where("userId", isEqualTo: currentUser.userId).get();
+    final _query =  await _db.collection("projects").doc(projectId).collection("members").get();
+    return _query.docs.length;
+  }
+
+  Future<void> joinMemberToProject(String userId, String projectId)async{
+    await _db.collection("projects").doc(projectId).collection("members").doc(userId).set({"userId": userId});
+  }
 }

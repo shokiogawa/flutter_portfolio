@@ -55,4 +55,8 @@ class GetProjectController extends StateNotifier<GetProjectState>{
   void getProjectOnRealTime() async{
     state.allProjects.addAll(projectRepository.getProjectOnRealTime());
   }
+
+  Future<bool> findJoinMembers(String projectId, int limitedNumber ) async{
+    return await projectRepository.findJoinMembers(projectId, limitedNumber);
+  }
 }
