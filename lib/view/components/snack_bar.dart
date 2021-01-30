@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SnackBarComponent extends SnackBar {
   SnackBarComponent(BuildContext context) : super(
-    content: Text('エラーが発生しました'),
+    content: Text('定員いっぱいです。参加できませんでした。'),
     action: SnackBarAction(
       label: '閉じる',
       onPressed: () {

@@ -12,36 +12,40 @@ class CommunityDetailPage extends StatelessWidget {
     final Project project = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       bottomNavigationBar: Builder(builder: (BuildContext context) {
-        return Container(
-          child: button.Button(
-            letter: "参加する",
-            onPressed: () async{
-              var canJoinProject;
-              canJoinProject =
-                  await Provider.of<GetProjectController>(context, listen: false)
-                      .findJoinMembers(
-                          project.projectId, project.participantNumber);
-              if (canJoinProject) {
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ShowModal(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        },
-                        letter: "プロジェクトに参加しました",
-                        buttonLetter: "戻る",
-                        innerCircle:
-                            Icon(Icons.check, color: Colors.black, size: 45),
-                      );
-                    });
-              } else {
-                Scaffold.of(context).showSnackBar(SnackBarComponent(context));
-              }
-            },
-            kind: button.ButtonTheme.Positive,
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 30.0),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: button.Button(
+              letter: "参加する",
+              onPressed: () async{
+                var canJoinProject;
+                canJoinProject =
+                    await Provider.of<GetProjectController>(context, listen: false)
+                        .findJoinMembers(
+                            project.projectId, project.participantNumber);
+                if (canJoinProject) {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ShowModal(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
+                          letter: "プロジェクトに参加しました",
+                          buttonLetter: "戻る",
+                          innerCircle:
+                              Icon(Icons.check, color: Colors.black, size: 45),
+                        );
+                      });
+                } else {
+                  Scaffold.of(context).showSnackBar(SnackBarComponent(context));
+                }
+              },
+              kind: button.ButtonTheme.Positive,
+            ),
           ),
         );
       }),
