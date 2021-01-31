@@ -58,7 +58,7 @@ class ProjectRepository {
     var joinNumber;
     joinNumber = await databaseManager.findNumberOfMember(projectId, UserRepository.currentUser);
     if(joinNumber < limitedNumber){
-      await databaseManager.joinMemberToProject(UserRepository.currentUser.userId, projectId);
+      await databaseManager.joinMemberToProject(UserRepository.currentUser.userId, projectId, UserRepository.currentUser);
       print("成功");
       return true;
     }else{

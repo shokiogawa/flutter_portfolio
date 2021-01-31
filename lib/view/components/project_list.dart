@@ -38,6 +38,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
           print("error");
         }
         return CustomScrollView(
+          cacheExtent: 500,
           key: PageStorageKey(widget.number),
           slivers: [
             SliverPadding(
