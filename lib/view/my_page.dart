@@ -94,14 +94,6 @@ class _MyPageState extends State<MyPage> {
                 floating: true,
                 forceElevated: innerBoxScrolled,
                 bottom: TabBar(
-                  // onTap: (value) {
-                  //   if(value == 0){
-                  //     Provider.of<GetProjectController>(context, listen: false)
-                  //         .getProject();
-                  //   }else{
-                  //     Provider.of<GetProjectController>(context, listen: false).getMyProject();
-                  //   }
-                  // },
                   labelColor: Colors.black,
                   indicatorColor: Colors.blueGrey,
                   indicatorSize: TabBarIndicatorSize.tab,
