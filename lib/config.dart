@@ -27,7 +27,7 @@ class Config {
         break;
       case Flavor.production:
         twitterLogin = TwitterLogin(
-            consumerKey: productApiKey, consumerSecret: productSecretKey);
+            consumerKey: apiKey, consumerSecret: secretKey);
         break;
     }
     return twitterLogin;
