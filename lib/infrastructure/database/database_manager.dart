@@ -107,13 +107,13 @@ class DatabaseManager {
 
   Future<void> joinMemberToProject(String userId, String projectId, User currentUser)async{
     // var userId;
-    // userId = await _db.collection("projects").doc(projectId).collection("members").where("userId", isEqualTo: currentUser.userId).get();
-    // print(userId);
-    // if(userId != null){
+    final isUserIn = await _db.collection("projects").doc(projectId).collection("members").where("userId", isEqualTo: currentUser.userId).get();
+    print(isUserIn.docs.length);
+    if(isUserIn.docs.length == 0){
       await _db.collection("projects").doc(projectId).collection("members").doc(userId).set({"userId": userId});
-    // }
-    // else{
-    //   print("もういるよ");
-    // }
+    }
+    else{
+      print("もういるよ");
+    }
   }
 }
