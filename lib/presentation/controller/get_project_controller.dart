@@ -2,6 +2,7 @@
 
 
 import 'package:communitygetandpost/domain/value_object/project.dart';
+import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/project_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +15,8 @@ abstract class GetProjectState with _$GetProjectState{
   factory GetProjectState({
     List<Project> allProjects,
     List<Project> joinProjects,
-    List<Project> myProject
+    List<Project> myProject,
+    List<User> joinUser
 }) = _GetProjectState;
 }
 
@@ -59,4 +61,12 @@ class GetProjectController extends StateNotifier<GetProjectState>{
   Future<bool> findJoinMembers(String projectId, int limitedNumber ) async{
     return await projectRepository.findJoinMembers(projectId, limitedNumber);
   }
+
+  Future<void> getJoinMembers(String projectId) async{
+    var memberList;
+    memberList = await projectRepository.getJoinMembers(projectId);
+    state = state.copyWith(joinUser: memberList);
+    print("参加メンバー:" + state.joinUser.length.toString());
+  }
+
 }

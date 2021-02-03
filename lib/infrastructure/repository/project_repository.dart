@@ -67,4 +67,10 @@ class ProjectRepository {
     }
 
   }
+
+  Future<List<User>>getJoinMembers(String projectId) async{
+    return await databaseManager.getJoinMembers(projectId);
+  }
+
+
 }

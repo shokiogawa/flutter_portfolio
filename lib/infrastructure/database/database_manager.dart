@@ -35,7 +35,7 @@ class DatabaseManager {
   //データベースからユーザー情報を取得
   Future<User> getUserInfoFromDb(String uid) async {
     final query =
-        await _db.collection("users").where("userId", isEqualTo: uid).get();
+    await _db.collection("users").where("userId", isEqualTo: uid).get();
     return User.fromMap(query.docs[0].data());
   }
 
@@ -61,8 +61,9 @@ class DatabaseManager {
     print(_query.docs.length.toString());
     if (_query.docs.length == 0) return List<Project>();
     var projects = List<Project>();
-    await _db.collection("projects").get().then((values) => values.docs
-        .forEach((value) => projects.add(Project.fromMap(value.data()))));
+    await _db.collection("projects").get().then((values) =>
+        values.docs
+            .forEach((value) => projects.add(Project.fromMap(value.data()))));
     return projects;
   }
 
@@ -79,9 +80,10 @@ class DatabaseManager {
         .collection("projects")
         .where("userId", isEqualTo: UserRepository.currentUser.userId)
         .get()
-        .then((myProjects) => myProjects.docs.forEach((myProject) {
-              projects.add(Project.fromMap(myProject.data()));
-            }));
+        .then((myProjects) =>
+        myProjects.docs.forEach((myProject) {
+          projects.add(Project.fromMap(myProject.data()));
+        }));
     print(projects.toString());
     return projects;
   }
@@ -100,20 +102,37 @@ class DatabaseManager {
     return projects;
   }
 
-  Future<int>findNumberOfMember(String projectId, User currentUser) async{
-    final _query =  await _db.collection("projects").doc(projectId).collection("members").get();
+  Future<int> findNumberOfMember(String projectId, User currentUser) async {
+    final _query = await _db.collection("projects").doc(projectId).collection(
+        "members").get();
     return _query.docs.length;
   }
 
-  Future<void> joinMemberToProject(String userId, String projectId, User currentUser)async{
+  Future<void> joinMemberToProject(String userId, String projectId,
+      User currentUser) async {
     // var userId;
-    final isUserIn = await _db.collection("projects").doc(projectId).collection("members").where("userId", isEqualTo: currentUser.userId).get();
+    final isUserIn = await _db.collection("projects").doc(projectId).collection(
+        "members").where("userId", isEqualTo: currentUser.userId).get();
     print(isUserIn.docs.length);
-    if(isUserIn.docs.length == 0){
-      await _db.collection("projects").doc(projectId).collection("members").doc(userId).set({"userId": userId});
+    if (isUserIn.docs.length == 0) {
+      await _db.collection("projects").doc(projectId).collection("members").doc(
+          userId).set({"userId": userId});
     }
-    else{
+    else {
       print("もういるよ");
     }
+  }
+
+  //projectに参加しているmemberを取得
+  Future<List<User>> getJoinMembers(String projectId) async {
+    final query = await _db.collection("projects").doc(projectId).collection(
+        "members").get();
+    if (query.docs.length == 0) return List();
+    var users = List<User>();
+    query.docs.forEach((userId) async {
+      users.add(await getUserInfoFromDb(userId.data()["userId"])
+      );
+    });
+    return users;
   }
 }
