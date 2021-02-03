@@ -1,4 +1,3 @@
-import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:flutter/material.dart';
 
 class Project{
@@ -54,16 +53,16 @@ class Project{
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Project &&
-          runtimeType == other.runtimeType &&
-          projectId == other.projectId &&
-          userId == other.userId &&
-          projectName == other.projectName &&
-          projectExplanation == other.projectExplanation &&
-          imageUrl == other.imageUrl &&
-          imageStoragePath == other.imageStoragePath &&
-          participantNumber == other.participantNumber &&
-          postDateTime == other.postDateTime);
+          (other is Project &&
+              runtimeType == other.runtimeType &&
+              projectId == other.projectId &&
+              userId == other.userId &&
+              projectName == other.projectName &&
+              projectExplanation == other.projectExplanation &&
+              imageUrl == other.imageUrl &&
+              imageStoragePath == other.imageStoragePath &&
+              participantNumber == other.participantNumber &&
+              postDateTime == other.postDateTime);
 
   @override
   int get hashCode =>
@@ -85,7 +84,10 @@ class Project{
       imageUrl: map['imageUrl'] as String,
       imageStoragePath: map['imageStoragePath'] as String,
       participantNumber: map['participantNumber'] as int,
-      postDateTime: map['postDateTime'] as DateTime,
+      // postDateTime: map['postDateTime'] as DateTime,
+      postDateTime: map['postDateTime'] == null
+          ? null
+          : DateTime.parse(map['postDateTime'] as String),
     );
   }
 
@@ -99,7 +101,7 @@ class Project{
       'imageUrl': this.imageUrl,
       'imageStoragePath': this.imageStoragePath,
       'participantNumber': this.participantNumber,
-      'postDateTime': this.postDateTime,
+      'postDateTime': this.postDateTime.toIso8601String(),
     } as Map<String, dynamic>;
   }
 
