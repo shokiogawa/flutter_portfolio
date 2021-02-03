@@ -35,7 +35,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          print("error");
+          print("エラー");
         }
         return CustomScrollView(
           cacheExtent: 500,

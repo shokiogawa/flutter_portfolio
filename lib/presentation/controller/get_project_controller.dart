@@ -30,7 +30,7 @@ class GetProjectController extends StateNotifier<GetProjectState>{
         var _allProject;
         _allProject = await projectRepository.getProject();
         state = state.copyWith(allProjects: _allProject);
-        print(state.allProjects);
+        print("stateの長さ:" + state.allProjects.length.toString());
       }
     }else{
       // if(state.myProject == null){

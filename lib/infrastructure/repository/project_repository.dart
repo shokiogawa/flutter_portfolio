@@ -43,6 +43,7 @@ class ProjectRepository {
   }
 
   Future<List<Project>>getProject() async{
+    print("repository");
     return await databaseManager.getProject();
   }
 

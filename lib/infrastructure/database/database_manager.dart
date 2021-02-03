@@ -64,6 +64,7 @@ class DatabaseManager {
     await _db.collection("projects").get().then((values) =>
         values.docs
             .forEach((value) => projects.add(Project.fromMap(value.data()))));
+    print("databaseのgetproject" + projects.length.toString());
     return projects;
   }
 
@@ -72,6 +73,7 @@ class DatabaseManager {
         .collection("projects")
         .where("userId", isEqualTo: UserRepository.currentUser.userId)
         .get();
+    print(query.docs.length.toString());
     if (query.docs.length == 0) {
       return List<Project>();
     }
@@ -84,7 +86,7 @@ class DatabaseManager {
         myProjects.docs.forEach((myProject) {
           projects.add(Project.fromMap(myProject.data()));
         }));
-    print(projects.toString());
+    print("databaseのgetMyproject");
     return projects;
   }
 

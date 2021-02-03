@@ -10,7 +10,6 @@ class Project{
   String imageStoragePath;
   int participantNumber;
   DateTime postDateTime;
-  List<User> participateUser;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -23,7 +22,6 @@ class Project{
     @required this.imageStoragePath,
     @required this.participantNumber,
     @required this.postDateTime,
-    @required this.participateUser,
   });
 
   Project copyWith({
@@ -35,7 +33,6 @@ class Project{
     String imageStoragePath,
     int participantNumber,
     DateTime postDateTime,
-    List<User> participateUser,
   }) {
     return new Project(
       projectId: projectId ?? this.projectId,
@@ -46,13 +43,12 @@ class Project{
       imageStoragePath: imageStoragePath ?? this.imageStoragePath,
       participantNumber: participantNumber ?? this.participantNumber,
       postDateTime: postDateTime ?? this.postDateTime,
-      participateUser: participateUser ?? this.participateUser,
     );
   }
 
   @override
   String toString() {
-    return 'Project{projectId: $projectId, userId: $userId, projectName: $projectName, projectExplanation: $projectExplanation, imageUrl: $imageUrl, imageStoragePath: $imageStoragePath, participantNumber: $participantNumber, postDateTime: $postDateTime, participateUser: $participateUser}';
+    return 'Project{projectId: $projectId, userId: $userId, projectName: $projectName, projectExplanation: $projectExplanation, imageUrl: $imageUrl, imageStoragePath: $imageStoragePath, participantNumber: $participantNumber, postDateTime: $postDateTime}';
   }
 
   @override
@@ -67,8 +63,7 @@ class Project{
           imageUrl == other.imageUrl &&
           imageStoragePath == other.imageStoragePath &&
           participantNumber == other.participantNumber &&
-          postDateTime == other.postDateTime &&
-          participateUser == other.participateUser);
+          postDateTime == other.postDateTime);
 
   @override
   int get hashCode =>
@@ -79,8 +74,7 @@ class Project{
       imageUrl.hashCode ^
       imageStoragePath.hashCode ^
       participantNumber.hashCode ^
-      postDateTime.hashCode ^
-      participateUser.hashCode;
+      postDateTime.hashCode;
 
   factory Project.fromMap(Map<String, dynamic> map) {
     return new Project(
@@ -92,7 +86,6 @@ class Project{
       imageStoragePath: map['imageStoragePath'] as String,
       participantNumber: map['participantNumber'] as int,
       postDateTime: map['postDateTime'] as DateTime,
-      participateUser: map['participateUser'] as List<User>,
     );
   }
 
@@ -107,7 +100,6 @@ class Project{
       'imageStoragePath': this.imageStoragePath,
       'participantNumber': this.participantNumber,
       'postDateTime': this.postDateTime,
-      'participateUser': this.participateUser,
     } as Map<String, dynamic>;
   }
 
