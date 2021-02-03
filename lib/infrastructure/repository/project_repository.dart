@@ -72,5 +72,9 @@ class ProjectRepository {
     return await databaseManager.getJoinMembers(projectId);
   }
 
+  Future<bool> identifyInMember(String projectId, String userId) async{
+    return await databaseManager.identifyInMembers(projectId, userId);
+  }
+
 
 }

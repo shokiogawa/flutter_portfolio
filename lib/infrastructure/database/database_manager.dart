@@ -135,4 +135,14 @@ class DatabaseManager {
     });
     return users;
   }
+
+  Future<bool> identifyInMembers(String projectId, String userId) async{
+    final myUserId = await _db.collection("projects").doc(projectId).collection("members").where("userId", isEqualTo: userId).get();
+    if(myUserId.docs.length == 0){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
 }

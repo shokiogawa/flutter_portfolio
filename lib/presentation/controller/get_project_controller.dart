@@ -69,4 +69,8 @@ class GetProjectController extends StateNotifier<GetProjectState>{
     print("参加メンバー:" + state.joinUser.length.toString());
   }
 
+  Future<bool> identifyInMember(String projectId, String userId) async{
+    return await projectRepository.identifyInMember(projectId, userId);
+  }
+
 }
