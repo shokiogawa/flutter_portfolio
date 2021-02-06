@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CommunityListPage extends StatelessWidget {
+class ProjectSearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
