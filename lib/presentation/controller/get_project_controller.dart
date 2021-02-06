@@ -18,7 +18,7 @@ abstract class GetProjectState with _$GetProjectState{
     List<Project> joinProjects,
     List<Project> myProject,
     List<User> joinUser,
-    bool meJoined,
+    @Default(false) bool meJoined,
 }) = _GetProjectState;
 }
 
