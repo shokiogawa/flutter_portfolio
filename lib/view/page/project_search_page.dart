@@ -17,8 +17,13 @@ class ProjectSearchPage extends StatelessWidget {
       body: FutureBuilder(
         future: controller.getProject(0),
         builder: ((BuildContext context, AsyncSnapshot snapshot){
-          return Container(
-            child: ProjectSlideHorizontal(state.allProjects),
+          return Column(
+            children: [
+              TextField(
+                controller: _textController,
+              ),
+              ProjectSlideHorizontal(state.allProjects),
+            ],
           );
         }),
       ),

@@ -12,7 +12,7 @@ class ProjectSlideHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> rowWidget = projects
         .map((project) =>
-            Container(width: 200, child: Padding(
+            Container(width: 200,height: 250, child: Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: ProjectContents(project),
             )))
