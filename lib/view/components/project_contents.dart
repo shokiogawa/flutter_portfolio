@@ -25,7 +25,7 @@ class ProjectContents extends StatelessWidget {
   Widget _imageArea(String url) {
     return ConstrainedBox(
         constraints: BoxConstraints.expand(
-          height: 110,
+          height: 80,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
@@ -49,6 +49,7 @@ class ProjectContents extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Text(getDateTimeInJapan(project), style: TextStyle(color: Colors.orange),),
           Padding(
             padding: const EdgeInsets.only(top: 2.0, left: 3.0),
             child: Container(
@@ -64,13 +65,15 @@ class ProjectContents extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 1.0),
-            child: Container(
-            ),
-          ),
         ],
       ),
     );
+
+  }
+  String getDateTimeInJapan(Project project) {
+    final String year = project.postDateTime.year.toString();
+    final String mounth = project.postDateTime.month.toString();
+    final String day = project.postDateTime.day.toString();
+    return year + "年" + mounth + "月" + day + "日";
   }
 }
