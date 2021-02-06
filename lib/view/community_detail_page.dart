@@ -2,6 +2,7 @@ import 'package:communitygetandpost/presentation/controller/get_project_controll
 import 'package:communitygetandpost/view/components/button.dart' as button;
 import 'package:communitygetandpost/view/components/show_modal.dart';
 import 'package:communitygetandpost/view/components/snack_bar.dart';
+import 'package:communitygetandpost/view/components/user_circle_image.dart';
 import 'package:flutter/material.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,8 @@ import 'package:provider/provider.dart';
 class CommunityDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<GetProjectController>(context, listen: false);
+    final controller =
+        Provider.of<GetProjectController>(context, listen: false);
     final Project project = ModalRoute.of(context).settings.arguments;
     // Future(() => controller.getJoinMembers(project.projectId));
     return Scaffold(
@@ -20,12 +22,13 @@ class CommunityDetailPage extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: button.Button(
               letter: "参加する",
-              onPressed: () async{
+              onPressed: () async {
                 var canJoinProject;
-                canJoinProject =
-                    await Provider.of<GetProjectController>(context, listen: false)
-                        .findJoinMembers(
-                            project.projectId, project.participantNumber);
+                canJoinProject = await Provider.of<GetProjectController>(
+                        context,
+                        listen: false)
+                    .findJoinMembers(
+                        project.projectId, project.participantNumber);
                 if (canJoinProject) {
                   showDialog(
                       barrierDismissible: false,
@@ -56,15 +59,20 @@ class CommunityDetailPage extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: controller.getJoinMembers(project.projectId),
-        builder: (context, snapshot){
-          if (snapshot.connectionState != ConnectionState.done){
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          if(snapshot.hasError){
+          if (snapshot.hasError) {
             print("error");
           }
+          final joinUsers = Provider.of<GetProjectState>(context, listen: true).joinUser;
+          final List<Widget> circlePhotos = joinUsers.map((user) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: CirclePhoto(user.photoUrl, 25, false),
+          )).toList();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -78,8 +86,18 @@ class CommunityDetailPage extends StatelessWidget {
                 ),
               ),
               //プロジェクト名
-              Container(
-                child: Text("プロジェクト名:   " + project.projectName),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top:8),
+                    child: Text("プロジェクト名"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, right: 10, left: 10),
+                    child: Text(project.projectName, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                  ),
+                ],
               ),
               //日にちと主催者
               Container(
@@ -90,18 +108,43 @@ class CommunityDetailPage extends StatelessWidget {
                       leading: Icon(Icons.timer),
                       title: Text("開催日:  " + getDateTimeInJapan(project)),
                     ),
-                    Text("参加人数:  " + project.participantNumber.toString())
+                    ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text(
+                          "最大参加人数:  " + project.participantNumber.toString()),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        children: [
+                          ...circlePhotos
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
+              SizedBox(
+                height: 30,
+              ),
               //project説明
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Project概要"),
-                    Text(project.projectExplanation),
-                  ],
+              Divider(),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("このプロジェクトは何をやるのか??", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(project.projectExplanation),
+                    ],
+                  ),
                 ),
               ),
             ],

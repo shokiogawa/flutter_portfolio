@@ -36,6 +36,7 @@ class DatabaseManager {
   Future<User> getUserInfoFromDb(String uid) async {
     final query =
     await _db.collection("users").where("userId", isEqualTo: uid).get();
+    print(query.docs[0].data().toString());
     return User.fromMap(query.docs[0].data());
   }
 
@@ -65,7 +66,7 @@ class DatabaseManager {
         values.docs
             .forEach((value) => projects.add(Project.fromMap(value.data()))));
     print("databaseのgetproject" + projects.length.toString());
-    return projects;
+    return  projects;
   }
 
   Future<List<Project>> getMyProject() async {
@@ -130,11 +131,15 @@ class DatabaseManager {
     final query = await _db.collection("projects").doc(projectId).collection(
         "members").get();
     if (query.docs.length == 0) return List();
-    var users = List<User>();
-    query.docs.forEach((userId) async {
-      users.add(await getUserInfoFromDb(userId.data()["userId"])
-      );
+    var userIds = List<String>();
+    query.docs.forEach((memberId) {
+      userIds.add(memberId.data()["userId"]);
     });
+    var users = List<User>();
+    await Future.forEach(userIds, (userId)async {
+      users.add(await getUserInfoFromDb(userId));
+    });
+    print("userの長さ" + users.length.toString());
     return users;
   }
 

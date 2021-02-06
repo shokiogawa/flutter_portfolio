@@ -33,7 +33,7 @@ class ProjectContents extends StatelessWidget {
           child: CachedNetworkImage(
             fit: BoxFit.cover,
             imageUrl: url,
-            placeholder: (context, url) => Icon(Icons.ac_unit),
+            placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ));
