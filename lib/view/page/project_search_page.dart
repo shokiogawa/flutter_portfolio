@@ -15,17 +15,10 @@ class ProjectSearchPage extends StatelessWidget {
         title: Text("プロジェクト検索"),
       ),
       body: FutureBuilder(
-        future: controller.getProject(1),
+        future: controller.getProject(0),
         builder: ((BuildContext context, AsyncSnapshot snapshot){
           return Container(
-            child: Column(
-              children: [
-                TextField(
-                  controller: _textController,
-                ),
-                ProjectSlideHorizontal(state.allProjects),
-              ],
-            ),
+            child: ProjectSlideHorizontal(state.allProjects),
           );
         }),
       ),
