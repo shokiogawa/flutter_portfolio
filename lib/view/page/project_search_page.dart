@@ -14,18 +14,33 @@ class ProjectSearchPage extends StatelessWidget {
         centerTitle: true,
         title: Text("プロジェクト検索"),
       ),
-      body: FutureBuilder(
-        future: controller.getProject(0),
-        builder: ((BuildContext context, AsyncSnapshot snapshot){
-          return Column(
-            children: [
-              TextField(
-                controller: _textController,
-              ),
-              ProjectSlideHorizontal(state.allProjects),
-            ],
-          );
-        }),
+      body: SingleChildScrollView(
+        child: FutureBuilder(
+          future: controller.getProject(0),
+          builder: ((BuildContext context, AsyncSnapshot snapshot){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: TextField(
+                        controller: _textController,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Text("全てのプロジェクト"),
+                ProjectSlideHorizontal(state.allProjects),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }
