@@ -146,8 +146,10 @@ class DatabaseManager {
   Future<bool> identifyInMembers(String projectId, String userId) async{
     final myUserId = await _db.collection("projects").doc(projectId).collection("members").where("userId", isEqualTo: userId).get();
     if(myUserId.docs.length == 0){
+      print("true");
       return true;
     }else{
+      print("false");
       return false;
     }
 

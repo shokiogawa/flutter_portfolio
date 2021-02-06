@@ -4,6 +4,7 @@
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/project_repository.dart';
+import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,7 +17,8 @@ abstract class GetProjectState with _$GetProjectState{
     List<Project> allProjects,
     List<Project> joinProjects,
     List<Project> myProject,
-    List<User> joinUser
+    List<User> joinUser,
+    bool meJoined,
 }) = _GetProjectState;
 }
 
@@ -62,15 +64,14 @@ class GetProjectController extends StateNotifier<GetProjectState>{
     return await projectRepository.findJoinMembers(projectId, limitedNumber);
   }
 
-  Future<void> getJoinMembers(String projectId) async{
+  Future<void> getJoinMembersAndIdentifyInMember(String projectId) async{
     var memberList;
     memberList = await projectRepository.getJoinMembers(projectId);
     state = state.copyWith(joinUser: memberList);
     print("参加メンバー:" + state.joinUser.length.toString());
-  }
-
-  Future<bool> identifyInMember(String projectId, String userId) async{
-    return await projectRepository.identifyInMember(projectId, userId);
+    var isJoined;
+    isJoined =  await projectRepository.identifyInMember(projectId, UserRepository.currentUser.userId);
+    state = state.copyWith(meJoined: isJoined);
   }
 
 }
