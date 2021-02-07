@@ -66,7 +66,7 @@ class _MyPageState extends State<MyPage> {
                             ),
                             InkWell(
                               child: Text(
-                                "プロジェクトを作成する。",
+                                "プロジェクトを作成する",
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
