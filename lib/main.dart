@@ -1,5 +1,6 @@
 import 'package:communitygetandpost/config.dart';
-import 'package:communitygetandpost/di.dart';
+import 'package:communitygetandpost/initialize/di_develop.dart';
+import 'package:communitygetandpost/initialize/di_product.dart';
 import 'package:communitygetandpost/presentation/controller/login_page_controller.dart';
 import 'file:///C:/Users/syoki/AndroidStudioProjects/communitygetandpost/lib/view/page/community_detail_page.dart';
 import 'file:///C:/Users/syoki/AndroidStudioProjects/communitygetandpost/lib/view/page/project_search_page.dart';
@@ -19,7 +20,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(
-    providers: globalProviders,
+    providers: flavor == Flavor.develop ? developGlobalProviders : productGlobalProviders,
       child: MyApp()));
 }
 
