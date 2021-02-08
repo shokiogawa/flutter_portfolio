@@ -1,12 +1,27 @@
 import 'package:communitygetandpost/presentation/controller/get_project_controller.dart';
+import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:communitygetandpost/view/components/project_slide_horizontal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProjectSearchPage extends StatelessWidget {
+class ProjectSearchPage extends StatefulWidget {
+  @override
+  _ProjectSearchPageState createState() => _ProjectSearchPageState();
+}
+
+class _ProjectSearchPageState extends State<ProjectSearchPage> {
+  Future _future;
+  List<Widget> columnWidget;
+
+  @override
+  void initState() {
+    _future = Provider.of<GetProjectController>(context, listen: false)
+        .getCategorizedProject();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<GetProjectController>(context, listen: false);
     final state = Provider.of<GetProjectState>(context, listen: true);
     final TextEditingController _textController = TextEditingController();
     return Scaffold(
@@ -16,49 +31,58 @@ class ProjectSearchPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
-          future: controller.getCategorizedProject(),
-          builder: ((BuildContext context, AsyncSnapshot snapshot){
+          future: _future,
+          builder: ((BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return Center(child: CircularProgressIndicator());
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: TextField(
-                        controller: _textController,
+            columnWidget = projectCategory
+                .map((category) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            category.projectCategoryName,
+                            style: TextStyle(
+                                color: Colors.black38,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        ProjectSlideHorizontal(state.mapProject[category.id]),
+                        Divider()
+                      ],
+                    ))
+                .toList();
+            return Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: TextField(
+                          controller: _textController,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 100,
-                ),
-                Text("テクノロジー"),
-                ProjectSlideHorizontal(state.mapProject[0]),
-                Text("アウトドア"),
-                ProjectSlideHorizontal(state.mapProject[1]),
-                Text("健康"),
-                ProjectSlideHorizontal(state.mapProject[2]),
-                Text("スポーツ"),
-                ProjectSlideHorizontal(state.mapProject[3]),
-                Text("勉強"),
-                ProjectSlideHorizontal(state.mapProject[4]),
-                Text("外国語"),
-                ProjectSlideHorizontal(state.mapProject[5]),
-                Text("ボランティア"),
-                ProjectSlideHorizontal(state.mapProject[6]),
-                Text("ゲーム"),
-                ProjectSlideHorizontal(state.mapProject[7]),
-                Text("プログラミング"),
-                ProjectSlideHorizontal(state.mapProject[8]),
-                Text("ビジネス"),
-                ProjectSlideHorizontal(state.mapProject[9]),
-              ],
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text("カテゴリー別プロジェクト", style: TextStyle(fontSize: 20, color: Colors.blueGrey),),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [...columnWidget],
+                  ),
+                ],
+              ),
             );
           }),
         ),
