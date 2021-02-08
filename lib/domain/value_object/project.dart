@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Project{
+class Project {
   String projectId;
   String userId;
   String projectName;
@@ -9,6 +9,7 @@ class Project{
   String imageStoragePath;
   int participantNumber;
   DateTime postDateTime;
+  int categoryId;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -21,6 +22,7 @@ class Project{
     @required this.imageStoragePath,
     @required this.participantNumber,
     @required this.postDateTime,
+    @required this.categoryId,
   });
 
   Project copyWith({
@@ -32,6 +34,7 @@ class Project{
     String imageStoragePath,
     int participantNumber,
     DateTime postDateTime,
+    int categoryId,
   }) {
     return new Project(
       projectId: projectId ?? this.projectId,
@@ -42,27 +45,29 @@ class Project{
       imageStoragePath: imageStoragePath ?? this.imageStoragePath,
       participantNumber: participantNumber ?? this.participantNumber,
       postDateTime: postDateTime ?? this.postDateTime,
+      categoryId: categoryId ?? this.categoryId,
     );
   }
 
   @override
   String toString() {
-    return 'Project{projectId: $projectId, userId: $userId, projectName: $projectName, projectExplanation: $projectExplanation, imageUrl: $imageUrl, imageStoragePath: $imageStoragePath, participantNumber: $participantNumber, postDateTime: $postDateTime}';
+    return 'Project{projectId: $projectId, userId: $userId, projectName: $projectName, projectExplanation: $projectExplanation, imageUrl: $imageUrl, imageStoragePath: $imageStoragePath, participantNumber: $participantNumber, postDateTime: $postDateTime, categoryId: $categoryId}';
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          (other is Project &&
-              runtimeType == other.runtimeType &&
-              projectId == other.projectId &&
-              userId == other.userId &&
-              projectName == other.projectName &&
-              projectExplanation == other.projectExplanation &&
-              imageUrl == other.imageUrl &&
-              imageStoragePath == other.imageStoragePath &&
-              participantNumber == other.participantNumber &&
-              postDateTime == other.postDateTime);
+      (other is Project &&
+          runtimeType == other.runtimeType &&
+          projectId == other.projectId &&
+          userId == other.userId &&
+          projectName == other.projectName &&
+          projectExplanation == other.projectExplanation &&
+          imageUrl == other.imageUrl &&
+          imageStoragePath == other.imageStoragePath &&
+          participantNumber == other.participantNumber &&
+          postDateTime == other.postDateTime &&
+          categoryId == other.categoryId);
 
   @override
   int get hashCode =>
@@ -73,7 +78,8 @@ class Project{
       imageUrl.hashCode ^
       imageStoragePath.hashCode ^
       participantNumber.hashCode ^
-      postDateTime.hashCode;
+      postDateTime.hashCode ^
+      categoryId.hashCode;
 
   factory Project.fromMap(Map<String, dynamic> map) {
     return new Project(
@@ -84,10 +90,10 @@ class Project{
       imageUrl: map['imageUrl'] as String,
       imageStoragePath: map['imageStoragePath'] as String,
       participantNumber: map['participantNumber'] as int,
-      // postDateTime: map['postDateTime'] as DateTime,
       postDateTime: map['postDateTime'] == null
           ? null
           : DateTime.parse(map['postDateTime'] as String),
+      categoryId: map['categoryId'] as int,
     );
   }
 
@@ -102,6 +108,7 @@ class Project{
       'imageStoragePath': this.imageStoragePath,
       'participantNumber': this.participantNumber,
       'postDateTime': this.postDateTime.toIso8601String(),
+      'categoryId': this.categoryId,
     } as Map<String, dynamic>;
   }
 

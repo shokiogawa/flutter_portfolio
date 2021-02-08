@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
+import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -119,6 +120,7 @@ class DatabaseManager {
     if (isUserIn.docs.length == 0) {
       await _db.collection("projects").doc(projectId).collection("members").doc(
           userId).set({"userId": userId});
+      await _db.collection("users").doc(userId).collection("joinProjects").doc(projectId).set({"projectId": projectId});
     }
     else {
       print("もういるよ");
@@ -153,4 +155,41 @@ class DatabaseManager {
     }
 
   }
+  //それぞれのカテゴリーのプロジェクトを取得。
+  Future<List<Project>>getCategorizedListProject(int categoryId) async{
+    final _query = await _db.collection("projects").where("categoryId", isEqualTo: categoryId).get();
+    var categorizedProject = List<Project>();
+    if(_query.docs.length == 0){
+      print("0ですよ");
+      return categorizedProject;
+    }
+    _query.docs.forEach((project) {
+      categorizedProject.add(Project.fromMap(project.data()));
+    });
+    return categorizedProject;
+  }
+  
+  Future<Project> getProjectByProjectId(String projectId)async{
+    final _query = await _db.collection("prokects").where("projectId", isEqualTo: projectId).get();
+    return Project.fromMap(_query.docs[0].data());
+  }
+
+  Future<List<Project>>getJoinedProject(String userId) async{
+    final _query = await _db.collection("users").doc(userId).collection("joinProjects").get();
+    if(_query.docs.length == 0){
+      return List<Project>();
+    }
+    var projectIds = List<String>();
+    _query.docs.forEach((projectId) {
+      projectIds.add(projectId.data()["projectId"]);
+    });
+    var joinProject = List<Project>();
+    await Future.forEach(projectIds, (projectId)async {
+      joinProject.add(await getProjectByProjectId(projectId));
+    });
+    print(joinProject.toString());
+    return joinProject;
+
+  }
+
 }
