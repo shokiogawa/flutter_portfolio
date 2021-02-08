@@ -4,6 +4,7 @@ import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
+import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -82,4 +83,16 @@ class ProjectRepository {
     return await databaseManager.identifyInMembers(projectId, userId);
   }
 
+  Future<Map<int, List<Project>>> getCategorizedProject() async {
+    var indexes = List<int>();
+    var categorizedProject = Map<int, List<Project>>();
+    projectCategory.forEach((project) {
+      indexes.add(project.id);
+    });
+    await Future.forEach(indexes, (index) async {
+      categorizedProject[index] =
+          await databaseManager.getCategorizedListProject(index);
+    });
+    return categorizedProject;
+  }
 }

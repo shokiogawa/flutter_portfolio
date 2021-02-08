@@ -16,8 +16,11 @@ class ProjectSearchPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
-          future: controller.getProject(0),
+          future: controller.getCategorizedProject(),
           builder: ((BuildContext context, AsyncSnapshot snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return Center(child: CircularProgressIndicator());
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -35,8 +38,26 @@ class ProjectSearchPage extends StatelessWidget {
                 SizedBox(
                   height: 100,
                 ),
-                Text("全てのプロジェクト"),
-                ProjectSlideHorizontal(state.allProjects),
+                Text("テクノロジー"),
+                ProjectSlideHorizontal(state.mapProject[0]),
+                Text("アウトドア"),
+                ProjectSlideHorizontal(state.mapProject[1]),
+                Text("健康"),
+                ProjectSlideHorizontal(state.mapProject[2]),
+                Text("スポーツ"),
+                ProjectSlideHorizontal(state.mapProject[3]),
+                Text("勉強"),
+                ProjectSlideHorizontal(state.mapProject[4]),
+                Text("外国語"),
+                ProjectSlideHorizontal(state.mapProject[5]),
+                Text("ボランティア"),
+                ProjectSlideHorizontal(state.mapProject[6]),
+                Text("ゲーム"),
+                ProjectSlideHorizontal(state.mapProject[7]),
+                Text("プログラミング"),
+                ProjectSlideHorizontal(state.mapProject[8]),
+                Text("ビジネス"),
+                ProjectSlideHorizontal(state.mapProject[9]),
               ],
             );
           }),

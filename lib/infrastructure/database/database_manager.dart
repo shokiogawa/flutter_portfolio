@@ -154,8 +154,18 @@ class DatabaseManager {
     }
 
   }
-
-
-
+  //それぞれのカテゴリーのプロジェクトを取得。
+  Future<List<Project>>getCategorizedListProject(int categoryId) async{
+    final _query = await _db.collection("projects").where("categoryId", isEqualTo: categoryId).get();
+    var categorizedProject = List<Project>();
+    if(_query.docs.length == 0){
+      print("0ですよ");
+      return categorizedProject;
+    }
+    _query.docs.forEach((project) {
+      categorizedProject.add(Project.fromMap(project.data()));
+    });
+    return categorizedProject;
+  }
 
 }
