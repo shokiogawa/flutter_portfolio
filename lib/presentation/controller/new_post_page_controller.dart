@@ -68,6 +68,6 @@ class ProjectController extends StateNotifier<ProjectState> {
   Future<void> insertProjectToDb() async {
     projectRepository.insertProjectToDb(
         UserRepository.currentUser, state.projectName, state.projectExplanation,
-        state.imageFile, state.participantNumber, state.projectOpenTime);
+        state.imageFile, state.participantNumber, state.projectOpenTime, state.projectCategory.id);
   }
 }

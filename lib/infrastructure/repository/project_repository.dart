@@ -26,18 +26,20 @@ class ProjectRepository {
       String projectEx,
       File imageFile,
       int paNumber,
-      DateTime dateTime) async {
+      DateTime dateTime,
+      int categoryId) async {
     final String storageId = Uuid().v1();
     final imageUrl = await databaseManager.uploadImageToStorage(
         imageFile, storageId);
-    final project = Project(projectId: Uuid().v1(),
+    final project = CategoryProject(projectId: Uuid().v1(),
         userId: postUser.userId,
         projectName: projectName,
         projectExplanation: projectEx,
         imageUrl: imageUrl,
         imageStoragePath: storageId,
         participantNumber: paNumber,
-        postDateTime: dateTime);
+        postDateTime: dateTime,
+    categoryId: categoryId);
     await databaseManager.insertProject(project);
   }
 

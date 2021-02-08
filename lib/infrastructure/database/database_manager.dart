@@ -51,7 +51,7 @@ class DatabaseManager {
   }
 
   //project1データ保存
-  Future<void> insertProject(Project project) async {
+  Future<void> insertProject(CategoryProject project) async {
     await _db
         .collection("projects")
         .doc(project.projectId)
