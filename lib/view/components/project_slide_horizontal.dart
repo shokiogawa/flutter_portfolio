@@ -12,9 +12,13 @@ class ProjectSlideHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> rowWidget = projects
         .map((project) =>
-            Container(width: 201,height: 200, child: Padding(
+            Container(width: 200,height: 200, child: Padding(
               padding: const EdgeInsets.only(right: 17.0),
-              child: ProjectContents(project),
+              child: InkWell(
+                onTap: (){
+                  Navigator.of(context).pushNamed('/community_detail_page', arguments: project);
+                },
+                  child: ProjectContents(project)),
             )))
         .toList();
     return SingleChildScrollView(
