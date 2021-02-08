@@ -24,7 +24,6 @@ class ProjectRepository {
       String projectName,
       String projectEx,
       File imageFile,
-      // String storagePath,
       int paNumber,
       DateTime dateTime) async {
     final String storageId = Uuid().v1();
