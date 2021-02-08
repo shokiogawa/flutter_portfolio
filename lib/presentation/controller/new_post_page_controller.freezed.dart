@@ -20,7 +20,8 @@ class _$ProjectStateTearOff {
       File imageFile,
       int participantNumber,
       User hostUser,
-      DateTime projectOpenTime}) {
+      DateTime projectOpenTime,
+      ProjectCategory projectCategory}) {
     return _ProjectState(
       projectName: projectName,
       projectExplanation: projectExplanation,
@@ -28,6 +29,7 @@ class _$ProjectStateTearOff {
       participantNumber: participantNumber,
       hostUser: hostUser,
       projectOpenTime: projectOpenTime,
+      projectCategory: projectCategory,
     );
   }
 }
@@ -44,6 +46,7 @@ mixin _$ProjectState {
   int get participantNumber;
   User get hostUser;
   DateTime get projectOpenTime;
+  ProjectCategory get projectCategory;
 
   @JsonKey(ignore: true)
   $ProjectStateCopyWith<ProjectState> get copyWith;
@@ -60,7 +63,8 @@ abstract class $ProjectStateCopyWith<$Res> {
       File imageFile,
       int participantNumber,
       User hostUser,
-      DateTime projectOpenTime});
+      DateTime projectOpenTime,
+      ProjectCategory projectCategory});
 }
 
 /// @nodoc
@@ -79,6 +83,7 @@ class _$ProjectStateCopyWithImpl<$Res> implements $ProjectStateCopyWith<$Res> {
     Object participantNumber = freezed,
     Object hostUser = freezed,
     Object projectOpenTime = freezed,
+    Object projectCategory = freezed,
   }) {
     return _then(_value.copyWith(
       projectName:
@@ -94,6 +99,9 @@ class _$ProjectStateCopyWithImpl<$Res> implements $ProjectStateCopyWith<$Res> {
       projectOpenTime: projectOpenTime == freezed
           ? _value.projectOpenTime
           : projectOpenTime as DateTime,
+      projectCategory: projectCategory == freezed
+          ? _value.projectCategory
+          : projectCategory as ProjectCategory,
     ));
   }
 }
@@ -111,7 +119,8 @@ abstract class _$ProjectStateCopyWith<$Res>
       File imageFile,
       int participantNumber,
       User hostUser,
-      DateTime projectOpenTime});
+      DateTime projectOpenTime,
+      ProjectCategory projectCategory});
 }
 
 /// @nodoc
@@ -132,6 +141,7 @@ class __$ProjectStateCopyWithImpl<$Res> extends _$ProjectStateCopyWithImpl<$Res>
     Object participantNumber = freezed,
     Object hostUser = freezed,
     Object projectOpenTime = freezed,
+    Object projectCategory = freezed,
   }) {
     return _then(_ProjectState(
       projectName:
@@ -147,6 +157,9 @@ class __$ProjectStateCopyWithImpl<$Res> extends _$ProjectStateCopyWithImpl<$Res>
       projectOpenTime: projectOpenTime == freezed
           ? _value.projectOpenTime
           : projectOpenTime as DateTime,
+      projectCategory: projectCategory == freezed
+          ? _value.projectCategory
+          : projectCategory as ProjectCategory,
     ));
   }
 }
@@ -159,7 +172,8 @@ class _$_ProjectState implements _ProjectState {
       this.imageFile,
       this.participantNumber,
       this.hostUser,
-      this.projectOpenTime});
+      this.projectOpenTime,
+      this.projectCategory});
 
   @override
   final String projectName;
@@ -173,10 +187,12 @@ class _$_ProjectState implements _ProjectState {
   final User hostUser;
   @override
   final DateTime projectOpenTime;
+  @override
+  final ProjectCategory projectCategory;
 
   @override
   String toString() {
-    return 'ProjectState(projectName: $projectName, projectExplanation: $projectExplanation, imageFile: $imageFile, participantNumber: $participantNumber, hostUser: $hostUser, projectOpenTime: $projectOpenTime)';
+    return 'ProjectState(projectName: $projectName, projectExplanation: $projectExplanation, imageFile: $imageFile, participantNumber: $participantNumber, hostUser: $hostUser, projectOpenTime: $projectOpenTime, projectCategory: $projectCategory)';
   }
 
   @override
@@ -200,7 +216,10 @@ class _$_ProjectState implements _ProjectState {
                     .equals(other.hostUser, hostUser)) &&
             (identical(other.projectOpenTime, projectOpenTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.projectOpenTime, projectOpenTime)));
+                    .equals(other.projectOpenTime, projectOpenTime)) &&
+            (identical(other.projectCategory, projectCategory) ||
+                const DeepCollectionEquality()
+                    .equals(other.projectCategory, projectCategory)));
   }
 
   @override
@@ -211,7 +230,8 @@ class _$_ProjectState implements _ProjectState {
       const DeepCollectionEquality().hash(imageFile) ^
       const DeepCollectionEquality().hash(participantNumber) ^
       const DeepCollectionEquality().hash(hostUser) ^
-      const DeepCollectionEquality().hash(projectOpenTime);
+      const DeepCollectionEquality().hash(projectOpenTime) ^
+      const DeepCollectionEquality().hash(projectCategory);
 
   @JsonKey(ignore: true)
   @override
@@ -226,7 +246,8 @@ abstract class _ProjectState implements ProjectState {
       File imageFile,
       int participantNumber,
       User hostUser,
-      DateTime projectOpenTime}) = _$_ProjectState;
+      DateTime projectOpenTime,
+      ProjectCategory projectCategory}) = _$_ProjectState;
 
   @override
   String get projectName;
@@ -240,6 +261,8 @@ abstract class _ProjectState implements ProjectState {
   User get hostUser;
   @override
   DateTime get projectOpenTime;
+  @override
+  ProjectCategory get projectCategory;
   @override
   @JsonKey(ignore: true)
   _$ProjectStateCopyWith<_ProjectState> get copyWith;
