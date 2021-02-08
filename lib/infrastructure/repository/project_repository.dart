@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:communitygetandpost/domain/value_object/category_project.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
@@ -73,6 +74,14 @@ class ProjectRepository {
 
   Future<bool> identifyInMember(String projectId, String userId) async{
     return await databaseManager.identifyInMembers(projectId, userId);
+  }
+
+  Future<List<CategoryProject>>getCategoryProject() async{
+    return await databaseManager.getCategoryProject();
+  }
+
+  Future<List<CategoryProject>>getMyCategoryProject() async{
+    return await databaseManager.getMyCategoryProject();
   }
 
 

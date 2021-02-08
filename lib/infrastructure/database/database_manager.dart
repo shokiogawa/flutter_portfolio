@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:communitygetandpost/domain/value_object/category_project.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
+import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -152,5 +154,41 @@ class DatabaseManager {
       return false;
     }
 
+  }
+
+  //カテゴライズされているプロジェクトを取得
+  Future<List<CategoryProject>>getCategoryProject() async{
+    final _query = await _db.collection("projects").get();
+    print(_query.docs.length.toString());
+    if (_query.docs.length == 0) return List<CategoryProject>();
+    var projects = List<CategoryProject>();
+    await _db.collection("projects").get().then((values) =>
+        values.docs
+            .forEach((value) => projects.add(CategoryProject.fromMap(value.data()))));
+    print("databaseのgetproject" + projects.length.toString());
+    return  projects;
+  }
+
+  //カテゴライズされている自分のプロジェクトを取得。
+  Future<List<CategoryProject>>getMyCategoryProject() async{
+    final query = await _db
+        .collection("projects")
+        .where("userId", isEqualTo: UserRepository.currentUser.userId)
+        .get();
+    print(query.docs.length.toString());
+    if (query.docs.length == 0) {
+      return List<CategoryProject>();
+    }
+    var projects = List<CategoryProject>();
+    await _db
+        .collection("projects")
+        .where("userId", isEqualTo: UserRepository.currentUser.userId)
+        .get()
+        .then((myProjects) =>
+        myProjects.docs.forEach((myProject) {
+          projects.add(CategoryProject.fromMap(myProject.data()));
+        }));
+    print("databaseのgetMyproject");
+    return projects;
   }
 }
