@@ -95,4 +95,8 @@ class ProjectRepository {
     });
     return categorizedProject;
   }
+
+  Future<List<Project>>getJoinedProject() async{
+    return await databaseManager.getJoinedProject(UserRepository.currentUser.userId);
+  }
 }

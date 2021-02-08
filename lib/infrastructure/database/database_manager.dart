@@ -120,6 +120,7 @@ class DatabaseManager {
     if (isUserIn.docs.length == 0) {
       await _db.collection("projects").doc(projectId).collection("members").doc(
           userId).set({"userId": userId});
+      await _db.collection("users").doc(userId).collection("joinProjects").doc(projectId).set({"projectId": projectId});
     }
     else {
       print("もういるよ");
@@ -166,6 +167,29 @@ class DatabaseManager {
       categorizedProject.add(Project.fromMap(project.data()));
     });
     return categorizedProject;
+  }
+  
+  Future<Project> getProjectByProjectId(String projectId)async{
+    final _query = await _db.collection("prokects").where("projectId", isEqualTo: projectId).get();
+    return Project.fromMap(_query.docs[0].data());
+  }
+
+  Future<List<Project>>getJoinedProject(String userId) async{
+    final _query = await _db.collection("users").doc(userId).collection("joinProjects").get();
+    if(_query.docs.length == 0){
+      return List<Project>();
+    }
+    var projectIds = List<String>();
+    _query.docs.forEach((projectId) {
+      projectIds.add(projectId.data()["projectId"]);
+    });
+    var joinProject = List<Project>();
+    await Future.forEach(projectIds, (projectId)async {
+      joinProject.add(await getProjectByProjectId(projectId));
+    });
+    print(joinProject.toString());
+    return joinProject;
+
   }
 
 }

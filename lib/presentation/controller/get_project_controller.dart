@@ -28,6 +28,10 @@ class GetProjectController extends StateNotifier<GetProjectState> {
 
   Future<void> getProject(int number) async {
     if (number == 0) {
+      // var joinedProjects;
+      // joinedProjects = await projectRepository.getJoinedProject();
+      // state = state.copyWith(joinProjects: joinedProjects);
+      // print("あなたが参加しているプロジェクトは" + state.joinProjects.length.toString());
       if (state.allProjects == null) {
         var _allProject;
         _allProject = await projectRepository.getProject();
@@ -72,5 +76,12 @@ class GetProjectController extends StateNotifier<GetProjectState> {
     categorizedProject = await projectRepository.getCategorizedProject();
     state = state.copyWith(mapProject: categorizedProject);
     print(state.mapProject[0]);
+  }
+
+  Future<void> getJoinedProject()async{
+    var joinedProjects;
+    joinedProjects = await projectRepository.getJoinedProject();
+    state = state.copyWith(joinProjects: joinedProjects);
+    print("あなたが参加しているプロジェクトは" + state.joinProjects.length.toString());
   }
 }
