@@ -19,16 +19,12 @@ class _$GetProjectStateTearOff {
       List<Project> joinProjects,
       List<Project> myProject,
       List<User> joinUser,
-      List<CategoryProject> allCategoryProject,
-      List<CategoryProject> myCategoryProject,
       bool meJoined = false}) {
     return _GetProjectState(
       allProjects: allProjects,
       joinProjects: joinProjects,
       myProject: myProject,
       joinUser: joinUser,
-      allCategoryProject: allCategoryProject,
-      myCategoryProject: myCategoryProject,
       meJoined: meJoined,
     );
   }
@@ -44,8 +40,6 @@ mixin _$GetProjectState {
   List<Project> get joinProjects;
   List<Project> get myProject;
   List<User> get joinUser;
-  List<CategoryProject> get allCategoryProject;
-  List<CategoryProject> get myCategoryProject;
   bool get meJoined;
 
   @JsonKey(ignore: true)
@@ -62,8 +56,6 @@ abstract class $GetProjectStateCopyWith<$Res> {
       List<Project> joinProjects,
       List<Project> myProject,
       List<User> joinUser,
-      List<CategoryProject> allCategoryProject,
-      List<CategoryProject> myCategoryProject,
       bool meJoined});
 }
 
@@ -82,8 +74,6 @@ class _$GetProjectStateCopyWithImpl<$Res>
     Object joinProjects = freezed,
     Object myProject = freezed,
     Object joinUser = freezed,
-    Object allCategoryProject = freezed,
-    Object myCategoryProject = freezed,
     Object meJoined = freezed,
   }) {
     return _then(_value.copyWith(
@@ -96,12 +86,6 @@ class _$GetProjectStateCopyWithImpl<$Res>
       myProject:
           myProject == freezed ? _value.myProject : myProject as List<Project>,
       joinUser: joinUser == freezed ? _value.joinUser : joinUser as List<User>,
-      allCategoryProject: allCategoryProject == freezed
-          ? _value.allCategoryProject
-          : allCategoryProject as List<CategoryProject>,
-      myCategoryProject: myCategoryProject == freezed
-          ? _value.myCategoryProject
-          : myCategoryProject as List<CategoryProject>,
       meJoined: meJoined == freezed ? _value.meJoined : meJoined as bool,
     ));
   }
@@ -119,8 +103,6 @@ abstract class _$GetProjectStateCopyWith<$Res>
       List<Project> joinProjects,
       List<Project> myProject,
       List<User> joinUser,
-      List<CategoryProject> allCategoryProject,
-      List<CategoryProject> myCategoryProject,
       bool meJoined});
 }
 
@@ -141,8 +123,6 @@ class __$GetProjectStateCopyWithImpl<$Res>
     Object joinProjects = freezed,
     Object myProject = freezed,
     Object joinUser = freezed,
-    Object allCategoryProject = freezed,
-    Object myCategoryProject = freezed,
     Object meJoined = freezed,
   }) {
     return _then(_GetProjectState(
@@ -155,12 +135,6 @@ class __$GetProjectStateCopyWithImpl<$Res>
       myProject:
           myProject == freezed ? _value.myProject : myProject as List<Project>,
       joinUser: joinUser == freezed ? _value.joinUser : joinUser as List<User>,
-      allCategoryProject: allCategoryProject == freezed
-          ? _value.allCategoryProject
-          : allCategoryProject as List<CategoryProject>,
-      myCategoryProject: myCategoryProject == freezed
-          ? _value.myCategoryProject
-          : myCategoryProject as List<CategoryProject>,
       meJoined: meJoined == freezed ? _value.meJoined : meJoined as bool,
     ));
   }
@@ -173,8 +147,6 @@ class _$_GetProjectState implements _GetProjectState {
       this.joinProjects,
       this.myProject,
       this.joinUser,
-      this.allCategoryProject,
-      this.myCategoryProject,
       this.meJoined = false})
       : assert(meJoined != null);
 
@@ -186,17 +158,13 @@ class _$_GetProjectState implements _GetProjectState {
   final List<Project> myProject;
   @override
   final List<User> joinUser;
-  @override
-  final List<CategoryProject> allCategoryProject;
-  @override
-  final List<CategoryProject> myCategoryProject;
   @JsonKey(defaultValue: false)
   @override
   final bool meJoined;
 
   @override
   String toString() {
-    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject, joinUser: $joinUser, allCategoryProject: $allCategoryProject, myCategoryProject: $myCategoryProject, meJoined: $meJoined)';
+    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject, joinUser: $joinUser, meJoined: $meJoined)';
   }
 
   @override
@@ -215,12 +183,6 @@ class _$_GetProjectState implements _GetProjectState {
             (identical(other.joinUser, joinUser) ||
                 const DeepCollectionEquality()
                     .equals(other.joinUser, joinUser)) &&
-            (identical(other.allCategoryProject, allCategoryProject) ||
-                const DeepCollectionEquality()
-                    .equals(other.allCategoryProject, allCategoryProject)) &&
-            (identical(other.myCategoryProject, myCategoryProject) ||
-                const DeepCollectionEquality()
-                    .equals(other.myCategoryProject, myCategoryProject)) &&
             (identical(other.meJoined, meJoined) ||
                 const DeepCollectionEquality()
                     .equals(other.meJoined, meJoined)));
@@ -233,8 +195,6 @@ class _$_GetProjectState implements _GetProjectState {
       const DeepCollectionEquality().hash(joinProjects) ^
       const DeepCollectionEquality().hash(myProject) ^
       const DeepCollectionEquality().hash(joinUser) ^
-      const DeepCollectionEquality().hash(allCategoryProject) ^
-      const DeepCollectionEquality().hash(myCategoryProject) ^
       const DeepCollectionEquality().hash(meJoined);
 
   @JsonKey(ignore: true)
@@ -249,8 +209,6 @@ abstract class _GetProjectState implements GetProjectState {
       List<Project> joinProjects,
       List<Project> myProject,
       List<User> joinUser,
-      List<CategoryProject> allCategoryProject,
-      List<CategoryProject> myCategoryProject,
       bool meJoined}) = _$_GetProjectState;
 
   @override
@@ -261,10 +219,6 @@ abstract class _GetProjectState implements GetProjectState {
   List<Project> get myProject;
   @override
   List<User> get joinUser;
-  @override
-  List<CategoryProject> get allCategoryProject;
-  @override
-  List<CategoryProject> get myCategoryProject;
   @override
   bool get meJoined;
   @override

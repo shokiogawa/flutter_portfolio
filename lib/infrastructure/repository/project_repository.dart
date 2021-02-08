@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:communitygetandpost/domain/value_object/category_project.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
@@ -21,7 +20,8 @@ class ProjectRepository {
     return File(image.path);
   }
 
-  Future<void> insertProjectToDb(User postUser,
+  Future<void> insertProjectToDb(
+      User postUser,
       String projectName,
       String projectEx,
       File imageFile,
@@ -29,9 +29,10 @@ class ProjectRepository {
       DateTime dateTime,
       int categoryId) async {
     final String storageId = Uuid().v1();
-    final imageUrl = await databaseManager.uploadImageToStorage(
-        imageFile, storageId);
-    final project = CategoryProject(projectId: Uuid().v1(),
+    final imageUrl =
+        await databaseManager.uploadImageToStorage(imageFile, storageId);
+    final project = Project(
+        projectId: Uuid().v1(),
         userId: postUser.userId,
         projectName: projectName,
         projectExplanation: projectEx,
@@ -39,52 +40,46 @@ class ProjectRepository {
         imageStoragePath: storageId,
         participantNumber: paNumber,
         postDateTime: dateTime,
-    categoryId: categoryId);
+        categoryId: categoryId);
     await databaseManager.insertProject(project);
   }
 
-  Future<List<Project>>getProject() async{
+  Future<List<Project>> getProject() async {
     print("repository");
     return await databaseManager.getProject();
   }
 
-  Future<List<Project>>getMyProject() async{
+  Future<List<Project>> getMyProject() async {
     return await databaseManager.getMyProject();
   }
 
-  List<Project>getProjectOnRealTime() {
+  List<Project> getProjectOnRealTime() {
     return databaseManager.getProjectOnRealtime();
   }
 
-  Future<bool>findJoinMembers(String projectId, int limitedNumber) async{
+  Future<bool> findJoinMembers(String projectId, int limitedNumber) async {
     var joinNumber;
-    joinNumber = await databaseManager.findNumberOfMember(projectId, UserRepository.currentUser);
-    if(joinNumber < limitedNumber){
-      await databaseManager.joinMemberToProject(UserRepository.currentUser.userId, projectId, UserRepository.currentUser);
+    joinNumber = await databaseManager.findNumberOfMember(
+        projectId, UserRepository.currentUser);
+    if (joinNumber < limitedNumber) {
+      await databaseManager.joinMemberToProject(
+          UserRepository.currentUser.userId,
+          projectId,
+          UserRepository.currentUser);
       print("成功");
       return true;
-    }else{
+    } else {
       print("定員オーバー");
       return false;
     }
-
   }
 
-  Future<List<User>>getJoinMembers(String projectId) async{
+  Future<List<User>> getJoinMembers(String projectId) async {
     return await databaseManager.getJoinMembers(projectId);
   }
 
-  Future<bool> identifyInMember(String projectId, String userId) async{
+  Future<bool> identifyInMember(String projectId, String userId) async {
     return await databaseManager.identifyInMembers(projectId, userId);
   }
-
-  Future<List<CategoryProject>>getCategoryProject() async{
-    return await databaseManager.getCategoryProject();
-  }
-
-  Future<List<CategoryProject>>getMyCategoryProject() async{
-    return await databaseManager.getMyCategoryProject();
-  }
-
 
 }

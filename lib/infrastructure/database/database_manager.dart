@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:communitygetandpost/domain/value_object/category_project.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
@@ -51,7 +50,7 @@ class DatabaseManager {
   }
 
   //project1データ保存
-  Future<void> insertProject(CategoryProject project) async {
+  Future<void> insertProject(Project project) async {
     await _db
         .collection("projects")
         .doc(project.projectId)
@@ -156,39 +155,7 @@ class DatabaseManager {
 
   }
 
-  //カテゴライズされているプロジェクトを取得
-  Future<List<CategoryProject>>getCategoryProject() async{
-    final _query = await _db.collection("projects").get();
-    print(_query.docs.length.toString());
-    if (_query.docs.length == 0) return List<CategoryProject>();
-    var projects = List<CategoryProject>();
-    await _db.collection("projects").get().then((values) =>
-        values.docs
-            .forEach((value) => projects.add(CategoryProject.fromMap(value.data()))));
-    print("databaseのgetproject" + projects.length.toString());
-    return  projects;
-  }
 
-  //カテゴライズされている自分のプロジェクトを取得。
-  Future<List<CategoryProject>>getMyCategoryProject() async{
-    final query = await _db
-        .collection("projects")
-        .where("userId", isEqualTo: UserRepository.currentUser.userId)
-        .get();
-    print(query.docs.length.toString());
-    if (query.docs.length == 0) {
-      return List<CategoryProject>();
-    }
-    var projects = List<CategoryProject>();
-    await _db
-        .collection("projects")
-        .where("userId", isEqualTo: UserRepository.currentUser.userId)
-        .get()
-        .then((myProjects) =>
-        myProjects.docs.forEach((myProject) {
-          projects.add(CategoryProject.fromMap(myProject.data()));
-        }));
-    print("databaseのgetMyproject");
-    return projects;
-  }
+
+
 }

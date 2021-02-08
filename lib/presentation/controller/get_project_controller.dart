@@ -1,7 +1,4 @@
 
-
-
-import 'package:communitygetandpost/domain/value_object/category_project.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/project_repository.dart';
@@ -18,8 +15,6 @@ abstract class GetProjectState with _$GetProjectState{
     List<Project> joinProjects,
     List<Project> myProject,
     List<User> joinUser,
-    List<CategoryProject> allCategoryProject,
-    List<CategoryProject> myCategoryProject,
     @Default(false) bool meJoined,
 }) = _GetProjectState;
 }
@@ -48,24 +43,7 @@ class GetProjectController extends StateNotifier<GetProjectState>{
 
   }
 
-  Future<void> getCategoryProject(int number)async{
-    if (number == 0){
-        var _allProject;
-        _allProject = await projectRepository.getCategoryProject();
-        state = state.copyWith(allCategoryProject: _allProject);
-        print("stateの長さ:" + state.allProjects.length.toString());
 
-    }else{
-      // if(state.myProject == null){
-      var myProject;
-      myProject = await projectRepository.getMyCategoryProject();
-      state = state.copyWith(myCategoryProject: myProject);
-      print(state.myProject);
-
-
-    }
-
-  }
 
   Future<void> getMyProject() async{
     if (state.myProject == null){
@@ -77,9 +55,6 @@ class GetProjectController extends StateNotifier<GetProjectState>{
 
   }
 
-  // void getProjectOnRealTime() async{
-  //   state.allProjects.addAll(projectRepository.getProjectOnRealTime());
-  // }
 
   Future<bool> findJoinMembers(String projectId, int limitedNumber ) async{
     return await projectRepository.findJoinMembers(projectId, limitedNumber);
