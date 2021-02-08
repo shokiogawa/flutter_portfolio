@@ -19,7 +19,7 @@ class _$GetProjectStateTearOff {
       List<Project> joinProjects,
       List<Project> myProject,
       List<User> joinUser,
-      bool meJoined}) {
+      bool meJoined = false}) {
     return _GetProjectState(
       allProjects: allProjects,
       joinProjects: joinProjects,
@@ -147,7 +147,8 @@ class _$_GetProjectState implements _GetProjectState {
       this.joinProjects,
       this.myProject,
       this.joinUser,
-      this.meJoined});
+      this.meJoined = false})
+      : assert(meJoined != null);
 
   @override
   final List<Project> allProjects;
@@ -157,6 +158,7 @@ class _$_GetProjectState implements _GetProjectState {
   final List<Project> myProject;
   @override
   final List<User> joinUser;
+  @JsonKey(defaultValue: false)
   @override
   final bool meJoined;
 

@@ -1,5 +1,6 @@
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:communitygetandpost/presentation/controller/new_post_page_controller.dart';
+import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class NewPostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final state = Provider.of<ProjectState>(context, listen: false);
+    final state = Provider.of<ProjectState>(context, listen: true);
     final controller = Provider.of<ProjectController>(context, listen: false);
     return Scaffold(
       bottomNavigationBar: Container(
@@ -65,25 +66,6 @@ class NewPostPage extends StatelessWidget {
                 ],
               ),
             ),
-            // Container(
-            //   child: InkWell(
-            //     onTap: () =>
-            //         Provider.of<ProjectController>(context, listen: false)
-            //             .getImage(),
-            //     child: CircleAvatar(
-            //       // Provider.of<ProjectState>(context, listen: false).imageFile;
-            //       backgroundImage:
-            //           Provider.of<ProjectState>(context, listen: false)
-            //                       .imageFile ==
-            //                   null
-            //               ? null
-            //               : FileImage(
-            //                   Provider.of<ProjectState>(context, listen: true)
-            //                       .imageFile),
-            //       backgroundColor: Colors.amber,
-            //     ),
-            //   ),
-            // ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Padding(
@@ -113,6 +95,44 @@ class NewPostPage extends StatelessWidget {
                       maxLines: 5,
                       controller: projectExplanationController,
                     )
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("ジャンルを選択する", style: TextStyle(color: Colors.black45),),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Wrap(
+                      spacing: 3,
+                      children:
+                          List<Widget>.generate(projectCategory.length, (int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ChoiceChip(
+                            labelPadding: EdgeInsets.all(8),
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Colors.grey
+                                ),
+                                borderRadius: BorderRadius.circular(5)
+                            ),
+                            selectedColor: Colors.red.withOpacity(0.7),
+                            backgroundColor: Colors.white,
+                            onSelected: (bool isSelected){
+                              controller.getCategory(projectCategory[index]);
+                            },
+                              label: Text(projectCategory[index].projectCategoryName, style: TextStyle(color: Colors.blueGrey),),
+                              selected: state.projectCategory.id == index),
+                        );
+                      }),
+                    ),
                   ],
                 ),
               ),
