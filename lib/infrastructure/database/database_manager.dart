@@ -170,12 +170,13 @@ class DatabaseManager {
   }
   
   Future<Project> getProjectByProjectId(String projectId)async{
-    final _query = await _db.collection("prokects").where("projectId", isEqualTo: projectId).get();
+    final _query = await _db.collection("projects").where("projectId", isEqualTo: projectId).get();
     return Project.fromMap(_query.docs[0].data());
   }
 
   Future<List<Project>>getJoinedProject(String userId) async{
     final _query = await _db.collection("users").doc(userId).collection("joinProjects").get();
+    print(_query.docs.length);
     if(_query.docs.length == 0){
       return List<Project>();
     }
@@ -183,11 +184,12 @@ class DatabaseManager {
     _query.docs.forEach((projectId) {
       projectIds.add(projectId.data()["projectId"]);
     });
+    print(projectIds.length);
     var joinProject = List<Project>();
     await Future.forEach(projectIds, (projectId)async {
       joinProject.add(await getProjectByProjectId(projectId));
     });
-    print(joinProject.toString());
+    print(joinProject.length);
     return joinProject;
 
   }

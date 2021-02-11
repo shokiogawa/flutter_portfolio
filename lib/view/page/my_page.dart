@@ -19,7 +19,7 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   List<Category> categories = [
     Category(
-        categoryId: 1, categoryName: "おすすめ", categoryEnglish: "recommended"),
+        categoryId: 1, categoryName: "参加プロジェクト", categoryEnglish: "joinProject"),
     Category(
         categoryId: 2, categoryName: "企画プロジェクト", categoryEnglish: "myproject"),
   ];
@@ -115,7 +115,7 @@ class _MyPageState extends State<MyPage> {
           body: TabBarView(children: [
             ProjectListWidget(0, Provider
                 .of<GetProjectState>(context, listen: true)
-                .allProjects),
+                .joinProjects),
             ProjectListWidget(1, Provider
                 .of<GetProjectState>(context, listen: true)
                 .myProject)
