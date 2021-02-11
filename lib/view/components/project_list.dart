@@ -50,64 +50,70 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Container(
-                              color: Colors.grey.withOpacity(0.1),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          getDateTimeInJapan(widget.projects[index]),
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                      )),
-                                  Card(
-                                    elevation: 2,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.blueGrey
-                                            )
-                                        ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed('/community_detail_page', arguments: widget.projects[index]);
+                        },
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Container(
+                                color: Colors.grey.withOpacity(0.1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text(projectCategory[
-                                          widget.projects[index].categoryId]
-                                              .projectCategoryName),
+                                          child: Text(
+                                            getDateTimeInJapan(widget.projects[index]),
+                                            style: TextStyle(fontSize: 18),
+                                          ),
                                         )),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    widget.projects[index].projectName,
-                                    style: TextStyle(color: Colors.black38),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Text(
-                                      widget.projects[index].projectExplanation,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    Card(
+                                      elevation: 2,
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.blueGrey
+                                              )
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(projectCategory[
+                                            widget.projects[index].categoryId]
+                                                .projectCategoryName),
+                                          )),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.projects[index].projectName,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0),
+                                      child: Text(
+                                        widget.projects[index].projectExplanation,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Divider(
