@@ -31,6 +31,11 @@ class _MyPageState extends State<MyPage> {
     // List<Widget> _buildWidget = categories.map((category) => ProjectListWidget(category.categoryId)).toList();
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Provider.of<GetProjectController>(context, listen: false).getJoinedProject();
+        },
+      ),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.exit_to_app),
