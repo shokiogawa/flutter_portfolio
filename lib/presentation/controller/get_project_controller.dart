@@ -28,16 +28,10 @@ class GetProjectController extends StateNotifier<GetProjectState> {
 
   Future<void> getProject(int number) async {
     if (number == 0) {
-      // var joinedProjects;
-      // joinedProjects = await projectRepository.getJoinedProject();
-      // state = state.copyWith(joinProjects: joinedProjects);
-      // print("あなたが参加しているプロジェクトは" + state.joinProjects.length.toString());
-      if (state.allProjects == null) {
-        var _allProject;
-        _allProject = await projectRepository.getProject();
-        state = state.copyWith(allProjects: _allProject);
-        print("stateの長さ:" + state.allProjects.length.toString());
-      }
+      var joinedProjects;
+      joinedProjects = await projectRepository.getJoinedProject();
+      state = state.copyWith(joinProjects: joinedProjects);
+      print("あなたが参加しているプロジェクトは" + state.joinProjects.length.toString());
     } else {
       // if(state.myProject == null){
       var myProject;
