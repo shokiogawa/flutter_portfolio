@@ -70,25 +70,30 @@ class DatabaseManager {
   }
 
   Future<List<Project>> getMyProject() async {
-    final query = await _db
-        .collection("projects")
-        .where("userId", isEqualTo: UserRepository.currentUser.userId)
-        .get();
-    print(query.docs.length.toString());
-    if (query.docs.length == 0) {
-      return List<Project>();
+    try{
+      final query = await _db
+          .collection("projects")
+          .where("userId", isEqualTo: UserRepository.currentUser.userId)
+          .get();
+      if (query.docs.length == 0) {
+        return List<Project>();
+      }
+      var projects = List<Project>();
+      await _db
+          .collection("projects")
+          .where("userId", isEqualTo: UserRepository.currentUser.userId).orderBy("postDateTime", descending: false)
+          .get()
+          .then((myProjects) =>
+          myProjects.docs.forEach((myProject) {
+            projects.add(Project.fromMap(myProject.data()));
+          }));
+      print("databaseのgetMyproject");
+      return projects;
     }
-    var projects = List<Project>();
-    await _db
-        .collection("projects")
-        .where("userId", isEqualTo: UserRepository.currentUser.userId)
-        .get()
-        .then((myProjects) =>
-        myProjects.docs.forEach((myProject) {
-          projects.add(Project.fromMap(myProject.data()));
-        }));
-    print("databaseのgetMyproject");
-    return projects;
+    catch(error){
+      return Future.error(error);
+    }
+
   }
 
 
