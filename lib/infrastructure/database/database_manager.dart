@@ -176,7 +176,7 @@ class DatabaseManager {
 
   Future<List<Project>>getJoinedProject(String userId) async{
     try{
-      final _query = await _db.collection("users").doc(userId).collection("joinProjects").get();
+      final _query = await _db.collection("users").doc(userId).collection("joinProjects").orderBy("heldDate", descending: false).get();
       print(_query.docs.length);
       if(_query.docs.length == 0){
         return List<Project>();
