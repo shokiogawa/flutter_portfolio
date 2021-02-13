@@ -58,14 +58,14 @@ class ProjectRepository {
     return databaseManager.getProjectOnRealtime();
   }
 
-  Future<bool> findJoinMembers(String projectId, int limitedNumber) async {
+  Future<bool> findJoinMembers(Project project, int limitedNumber) async {
     var joinNumber;
     joinNumber = await databaseManager.findNumberOfMember(
-        projectId, UserRepository.currentUser);
+        project.projectId, UserRepository.currentUser);
     if (joinNumber < limitedNumber) {
       await databaseManager.joinMemberToProject(
           UserRepository.currentUser.userId,
-          projectId,
+          project,
           UserRepository.currentUser);
       print("成功");
       return true;

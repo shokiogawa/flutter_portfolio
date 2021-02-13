@@ -111,16 +111,16 @@ class DatabaseManager {
     return _query.docs.length;
   }
 
-  Future<void> joinMemberToProject(String userId, String projectId,
+  Future<void> joinMemberToProject(String userId, Project project,
       User currentUser) async {
     // var userId;
-    final isUserIn = await _db.collection("projects").doc(projectId).collection(
+    final isUserIn = await _db.collection("projects").doc(project.projectId).collection(
         "members").where("userId", isEqualTo: currentUser.userId).get();
     print(isUserIn.docs.length);
     if (isUserIn.docs.length == 0) {
-      await _db.collection("projects").doc(projectId).collection("members").doc(
+      await _db.collection("projects").doc(project.projectId).collection("members").doc(
           userId).set({"userId": userId});
-      await _db.collection("users").doc(userId).collection("joinProjects").doc(projectId).set({"projectId": projectId});
+      await _db.collection("users").doc(userId).collection("joinProjects").doc(project.projectId).set({"projectId": project.projectId, "heldDate": project.postDateTime});
     }
     else {
       print("もういるよ");
