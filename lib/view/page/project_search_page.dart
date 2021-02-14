@@ -1,8 +1,11 @@
 import 'package:communitygetandpost/presentation/controller/get_project_controller.dart';
+import 'package:communitygetandpost/presentation/controller/search_project_controller.dart';
 import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:communitygetandpost/view/components/project_slide_horizontal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:communitygetandpost/view/components/project_search_delegate.dart';
+
 
 class ProjectSearchPage extends StatefulWidget {
   @override
@@ -24,10 +27,20 @@ class _ProjectSearchPageState extends State<ProjectSearchPage> {
   Widget build(BuildContext context) {
     final state = Provider.of<GetProjectState>(context, listen: true);
     final TextEditingController _textController = TextEditingController();
+    final controller = Provider.of<SearchProjectController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("プロジェクト検索"),
+        leading: Icon(Icons.search),
+        title: InkWell(
+          splashColor: Colors.white30,
+          onTap: () async{
+            final selectProject = await showSearch(
+              context: context,
+              delegate:  ProjectSearchDelegate(),
+            );
+          },
+          child: Text("検索"),
+        ),
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -57,23 +70,15 @@ class _ProjectSearchPageState extends State<ProjectSearchPage> {
             return Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: TextField(
-                          controller: _textController,
-                        ),
-                      ),
-                    ),
-                  ),
                   SizedBox(
                     height: 50,
                   ),
-                  Text("カテゴリー別プロジェクト", style: TextStyle(fontSize: 20, color: Colors.blueGrey),),
+                  Text(
+                    "カテゴリー別プロジェクト",
+                    style: TextStyle(fontSize: 20, color: Colors.blueGrey),
+                  ),
                   SizedBox(
                     height: 30,
                   ),

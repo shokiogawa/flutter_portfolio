@@ -146,7 +146,7 @@ class CommunityDetailPage extends StatelessWidget {
                     context,
                     listen: false)
                     .findJoinMembers(
-                    project.projectId, project.participantNumber);
+                    project, project.participantNumber);
                 if (canJoinProject) {
                   showDialog(
                       barrierDismissible: false,

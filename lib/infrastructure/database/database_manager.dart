@@ -70,25 +70,30 @@ class DatabaseManager {
   }
 
   Future<List<Project>> getMyProject() async {
-    final query = await _db
-        .collection("projects")
-        .where("userId", isEqualTo: UserRepository.currentUser.userId)
-        .get();
-    print(query.docs.length.toString());
-    if (query.docs.length == 0) {
-      return List<Project>();
+    try{
+      final query = await _db
+          .collection("projects")
+          .where("userId", isEqualTo: UserRepository.currentUser.userId)
+          .get();
+      if (query.docs.length == 0) {
+        return List<Project>();
+      }
+      var projects = List<Project>();
+      await _db
+          .collection("projects")
+          .where("userId", isEqualTo: UserRepository.currentUser.userId).orderBy("postDateTime", descending: false)
+          .get()
+          .then((myProjects) =>
+          myProjects.docs.forEach((myProject) {
+            projects.add(Project.fromMap(myProject.data()));
+          }));
+      print("databaseのgetMyproject");
+      return projects;
     }
-    var projects = List<Project>();
-    await _db
-        .collection("projects")
-        .where("userId", isEqualTo: UserRepository.currentUser.userId)
-        .get()
-        .then((myProjects) =>
-        myProjects.docs.forEach((myProject) {
-          projects.add(Project.fromMap(myProject.data()));
-        }));
-    print("databaseのgetMyproject");
-    return projects;
+    catch(error){
+      return Future.error(error);
+    }
+
   }
 
 
@@ -111,16 +116,16 @@ class DatabaseManager {
     return _query.docs.length;
   }
 
-  Future<void> joinMemberToProject(String userId, String projectId,
+  Future<void> joinMemberToProject(String userId, Project project,
       User currentUser) async {
     // var userId;
-    final isUserIn = await _db.collection("projects").doc(projectId).collection(
+    final isUserIn = await _db.collection("projects").doc(project.projectId).collection(
         "members").where("userId", isEqualTo: currentUser.userId).get();
     print(isUserIn.docs.length);
     if (isUserIn.docs.length == 0) {
-      await _db.collection("projects").doc(projectId).collection("members").doc(
+      await _db.collection("projects").doc(project.projectId).collection("members").doc(
           userId).set({"userId": userId});
-      await _db.collection("users").doc(userId).collection("joinProjects").doc(projectId).set({"projectId": projectId});
+      await _db.collection("users").doc(userId).collection("joinProjects").doc(project.projectId).set({"projectId": project.projectId, "heldDate": project.postDateTime});
     }
     else {
       print("もういるよ");
@@ -175,23 +180,42 @@ class DatabaseManager {
   }
 
   Future<List<Project>>getJoinedProject(String userId) async{
-    final _query = await _db.collection("users").doc(userId).collection("joinProjects").get();
-    print(_query.docs.length);
-    if(_query.docs.length == 0){
+    try{
+      final _query = await _db.collection("users").doc(userId).collection("joinProjects").orderBy("heldDate", descending: false).get();
+      print(_query.docs.length);
+      if(_query.docs.length == 0){
+        return List<Project>();
+      }
+      var projectIds = List<String>();
+      _query.docs.forEach((projectId) {
+        projectIds.add(projectId.data()["projectId"]);
+      });
+      print(projectIds.length);
+      var joinProject = List<Project>();
+      await Future.forEach(projectIds, (projectId)async {
+        joinProject.add(await getProjectByProjectId(projectId));
+      });
+      print(joinProject.length);
+      return joinProject;
+    }catch(error){
+      return Future.error(error);
+    }
+
+
+  }
+
+  Future<List<Project>>searchProjects(String query) async{
+    final _query = await _db.collection("projects").orderBy("projectName").startAt([query]).endAt([query + "\uf8ff"]).get();
+    if (_query.docs.length ==0){
+      print("検索結果は0");
       return List<Project>();
     }
-    var projectIds = List<String>();
-    _query.docs.forEach((projectId) {
-      projectIds.add(projectId.data()["projectId"]);
+    var searchProjects = List<Project>();
+    _query.docs.forEach((project) {
+      searchProjects.add(Project.fromMap(project.data()));
     });
-    print(projectIds.length);
-    var joinProject = List<Project>();
-    await Future.forEach(projectIds, (projectId)async {
-      joinProject.add(await getProjectByProjectId(projectId));
-    });
-    print(joinProject.length);
-    return joinProject;
-
+    print("検索したプロジェクトの個数は" + searchProjects.length.toString());
+    return searchProjects;
   }
 
 }

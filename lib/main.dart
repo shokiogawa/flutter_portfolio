@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         '/community_detail_page': (BuildContext context) => CommunityDetailPage(),
         '/login_page': (BuildContext context) => LoginScreen(),
         '/new_post_page':(BuildContext context) => NewPostPage(),
-        '/new_post_page_next': (BuildContext context) => NewPostPageNext()
+        '/new_post_page_next': (BuildContext context) => NewPostPageNext(),
       },
     );
   }

@@ -50,8 +50,8 @@ class GetProjectController extends StateNotifier<GetProjectState> {
     }
   }
 
-  Future<bool> findJoinMembers(String projectId, int limitedNumber) async {
-    return await projectRepository.findJoinMembers(projectId, limitedNumber);
+  Future<bool> findJoinMembers(Project project, int limitedNumber) async {
+    return await projectRepository.findJoinMembers(project, limitedNumber);
   }
 
   Future<void> getJoinMembersAndIdentifyInMember(String projectId) async {
