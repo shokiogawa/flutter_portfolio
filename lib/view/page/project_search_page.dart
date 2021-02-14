@@ -1,4 +1,5 @@
 import 'package:communitygetandpost/presentation/controller/get_project_controller.dart';
+import 'package:communitygetandpost/presentation/controller/search_project_controller.dart';
 import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:communitygetandpost/view/components/project_slide_horizontal.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class _ProjectSearchPageState extends State<ProjectSearchPage> {
   Widget build(BuildContext context) {
     final state = Provider.of<GetProjectState>(context, listen: true);
     final TextEditingController _textController = TextEditingController();
+    final controller = Provider.of<SearchProjectController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.search),

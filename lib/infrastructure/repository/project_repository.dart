@@ -99,4 +99,9 @@ class ProjectRepository {
   Future<List<Project>>getJoinedProject() async{
     return await databaseManager.getJoinedProject(UserRepository.currentUser.userId);
   }
+
+  Future<List<Project>>searchProjects(String query) async{
+    print("searchRepository");
+    return await databaseManager.searchProjects(query);
+  }
 }

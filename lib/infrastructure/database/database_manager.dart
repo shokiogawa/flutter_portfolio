@@ -204,4 +204,18 @@ class DatabaseManager {
 
   }
 
+  Future<List<Project>>searchProjects(String query) async{
+    final _query = await _db.collection("projects").orderBy("projectName").startAt([query]).endAt([query + "\uf8ff"]).get();
+    if (_query.docs.length ==0){
+      print("検索結果は0");
+      return List<Project>();
+    }
+    var searchProjects = List<Project>();
+    _query.docs.forEach((project) {
+      searchProjects.add(Project.fromMap(project.data()));
+    });
+    print("検索したプロジェクトの個数は" + searchProjects.length.toString());
+    return searchProjects;
+  }
+
 }
