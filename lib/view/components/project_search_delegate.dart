@@ -64,7 +64,7 @@ class ProjectSearchDelegate extends SearchDelegate<Project> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5), topRight: Radius.circular(5), bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+                          topLeft: Radius.circular(4), topRight: Radius.circular(5), bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
                         imageUrl: projects[index].imageUrl,
