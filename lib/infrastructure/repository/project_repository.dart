@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:communitygetandpost/domain/value_object/location.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
+import 'package:communitygetandpost/infrastructure/location_manager/location_manager.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,8 +14,9 @@ import 'package:uuid/uuid.dart';
 
 class ProjectRepository {
   final DatabaseManager databaseManager;
+  final LocationManager locationManager;
 
-  ProjectRepository(this.databaseManager);
+  ProjectRepository(this.databaseManager, this.locationManager);
 
   Future<File> getImage() async {
     final imagePicker = ImagePicker();
@@ -103,5 +106,9 @@ class ProjectRepository {
   Future<List<Project>>searchProjects(String query) async{
     print("searchRepository");
     return await databaseManager.searchProjects(query);
+  }
+
+  Future<Location> getLocation() async{
+    return await locationManager.getLocation();
   }
 }

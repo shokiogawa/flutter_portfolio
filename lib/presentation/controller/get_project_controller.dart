@@ -1,3 +1,4 @@
+import 'package:communitygetandpost/domain/value_object/location.dart';
 import 'package:communitygetandpost/domain/value_object/project.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/project_repository.dart';
@@ -17,6 +18,7 @@ abstract class GetProjectState with _$GetProjectState {
     List<User> joinUser,
     Map<int, List<Project>> mapProject,
     @Default(false) bool meJoined,
+    Location location,
   }) = _GetProjectState;
 }
 
@@ -70,6 +72,8 @@ class GetProjectController extends StateNotifier<GetProjectState> {
     categorizedProject = await projectRepository.getCategorizedProject();
     state = state.copyWith(mapProject: categorizedProject);
     print(state.mapProject[0]);
+    final location = await projectRepository.getLocation();
+    state = state.copyWith(location: location);
   }
 
   Future<void> getJoinedProject()async{

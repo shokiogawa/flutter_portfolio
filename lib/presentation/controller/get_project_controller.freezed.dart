@@ -20,7 +20,8 @@ class _$GetProjectStateTearOff {
       List<Project> myProject,
       List<User> joinUser,
       Map<int, List<Project>> mapProject,
-      bool meJoined = false}) {
+      bool meJoined = false,
+      Location location}) {
     return _GetProjectState(
       allProjects: allProjects,
       joinProjects: joinProjects,
@@ -28,6 +29,7 @@ class _$GetProjectStateTearOff {
       joinUser: joinUser,
       mapProject: mapProject,
       meJoined: meJoined,
+      location: location,
     );
   }
 }
@@ -44,6 +46,7 @@ mixin _$GetProjectState {
   List<User> get joinUser;
   Map<int, List<Project>> get mapProject;
   bool get meJoined;
+  Location get location;
 
   @JsonKey(ignore: true)
   $GetProjectStateCopyWith<GetProjectState> get copyWith;
@@ -60,7 +63,8 @@ abstract class $GetProjectStateCopyWith<$Res> {
       List<Project> myProject,
       List<User> joinUser,
       Map<int, List<Project>> mapProject,
-      bool meJoined});
+      bool meJoined,
+      Location location});
 }
 
 /// @nodoc
@@ -80,6 +84,7 @@ class _$GetProjectStateCopyWithImpl<$Res>
     Object joinUser = freezed,
     Object mapProject = freezed,
     Object meJoined = freezed,
+    Object location = freezed,
   }) {
     return _then(_value.copyWith(
       allProjects: allProjects == freezed
@@ -95,6 +100,7 @@ class _$GetProjectStateCopyWithImpl<$Res>
           ? _value.mapProject
           : mapProject as Map<int, List<Project>>,
       meJoined: meJoined == freezed ? _value.meJoined : meJoined as bool,
+      location: location == freezed ? _value.location : location as Location,
     ));
   }
 }
@@ -112,7 +118,8 @@ abstract class _$GetProjectStateCopyWith<$Res>
       List<Project> myProject,
       List<User> joinUser,
       Map<int, List<Project>> mapProject,
-      bool meJoined});
+      bool meJoined,
+      Location location});
 }
 
 /// @nodoc
@@ -134,6 +141,7 @@ class __$GetProjectStateCopyWithImpl<$Res>
     Object joinUser = freezed,
     Object mapProject = freezed,
     Object meJoined = freezed,
+    Object location = freezed,
   }) {
     return _then(_GetProjectState(
       allProjects: allProjects == freezed
@@ -149,6 +157,7 @@ class __$GetProjectStateCopyWithImpl<$Res>
           ? _value.mapProject
           : mapProject as Map<int, List<Project>>,
       meJoined: meJoined == freezed ? _value.meJoined : meJoined as bool,
+      location: location == freezed ? _value.location : location as Location,
     ));
   }
 }
@@ -161,7 +170,8 @@ class _$_GetProjectState implements _GetProjectState {
       this.myProject,
       this.joinUser,
       this.mapProject,
-      this.meJoined = false})
+      this.meJoined = false,
+      this.location})
       : assert(meJoined != null);
 
   @override
@@ -177,10 +187,12 @@ class _$_GetProjectState implements _GetProjectState {
   @JsonKey(defaultValue: false)
   @override
   final bool meJoined;
+  @override
+  final Location location;
 
   @override
   String toString() {
-    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject, joinUser: $joinUser, mapProject: $mapProject, meJoined: $meJoined)';
+    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject, joinUser: $joinUser, mapProject: $mapProject, meJoined: $meJoined, location: $location)';
   }
 
   @override
@@ -204,7 +216,10 @@ class _$_GetProjectState implements _GetProjectState {
                     .equals(other.mapProject, mapProject)) &&
             (identical(other.meJoined, meJoined) ||
                 const DeepCollectionEquality()
-                    .equals(other.meJoined, meJoined)));
+                    .equals(other.meJoined, meJoined)) &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)));
   }
 
   @override
@@ -215,7 +230,8 @@ class _$_GetProjectState implements _GetProjectState {
       const DeepCollectionEquality().hash(myProject) ^
       const DeepCollectionEquality().hash(joinUser) ^
       const DeepCollectionEquality().hash(mapProject) ^
-      const DeepCollectionEquality().hash(meJoined);
+      const DeepCollectionEquality().hash(meJoined) ^
+      const DeepCollectionEquality().hash(location);
 
   @JsonKey(ignore: true)
   @override
@@ -230,7 +246,8 @@ abstract class _GetProjectState implements GetProjectState {
       List<Project> myProject,
       List<User> joinUser,
       Map<int, List<Project>> mapProject,
-      bool meJoined}) = _$_GetProjectState;
+      bool meJoined,
+      Location location}) = _$_GetProjectState;
 
   @override
   List<Project> get allProjects;
@@ -244,6 +261,8 @@ abstract class _GetProjectState implements GetProjectState {
   Map<int, List<Project>> get mapProject;
   @override
   bool get meJoined;
+  @override
+  Location get location;
   @override
   @JsonKey(ignore: true)
   _$GetProjectStateCopyWith<_GetProjectState> get copyWith;

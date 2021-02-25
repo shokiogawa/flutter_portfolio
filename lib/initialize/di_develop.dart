@@ -1,5 +1,6 @@
 import 'package:communitygetandpost/config.dart';
 import 'package:communitygetandpost/infrastructure/database/database_manager.dart';
+import 'package:communitygetandpost/infrastructure/location_manager/location_manager.dart';
 import 'package:communitygetandpost/infrastructure/repository/project_repository.dart';
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
 import 'package:communitygetandpost/main.dart';
@@ -21,6 +22,7 @@ List<SingleChildWidget> developGlobalProviders = [
 ];
 //他のどのクラスにも依存しないModel
 List<SingleChildWidget> independentModels = [
+  Provider<LocationManager>(create: (_) => LocationManager()),
   Provider<DatabaseManager>(create: (_) => DatabaseManager()),
   Provider<Config>(create: (_) => Config(Flavor.develop))
 ];
@@ -30,9 +32,9 @@ List<SingleChildWidget> dependentModel = [
   ProxyProvider2<DatabaseManager, Config, UserRepository>(
       update: (_, dbManager, config, userRepository) =>
           UserRepository(dbManager, config)),
-  ProxyProvider<DatabaseManager, ProjectRepository>(
-      update: (_, databaseManager, projectRepository) =>
-          ProjectRepository(databaseManager)),
+  ProxyProvider2<DatabaseManager,LocationManager, ProjectRepository>(
+      update: (_, databaseManager,locationManager, projectRepository) =>
+          ProjectRepository(databaseManager, locationManager)),
 ];
 
 //UI(VIEW)から直接使う。上で登録したクラスを使える。

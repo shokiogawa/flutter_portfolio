@@ -94,7 +94,7 @@ class _ProjectSearchPageState extends State<ProjectSearchPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("場所"),
+                              Text(state.location.city),
                               Row(
                                 children: [
                                   IconButton(
