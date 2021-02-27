@@ -1,5 +1,6 @@
-import 'package:communitygetandpost/view/community_list_page.dart';
-import 'package:communitygetandpost/view/my_page.dart';
+import 'file:///C:/Users/syoki/AndroidStudioProjects/communitygetandpost/lib/view/page/project_search_page.dart';
+import 'file:///C:/Users/syoki/AndroidStudioProjects/communitygetandpost/lib/view/page/my_page.dart';
+import 'package:communitygetandpost/view/page/todo_list_page.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,16 +16,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pages = [MyPage(), CommunityListPage()];
+    _pages = [MyPage(), ProjectSearchPage(), ToDoListPage()];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Community"),
-      //   centerTitle: true,
-      // ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index){
@@ -34,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
           items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("HOME")),
-        BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("SEARCH"))
+        BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("SEARCH")),
+            BottomNavigationBarItem(icon: Icon(Icons.today_outlined), title: Text("TODO"))
       ]),
       body: _pages[_currentIndex],
 

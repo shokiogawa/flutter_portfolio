@@ -17,11 +17,17 @@ class _$GetProjectStateTearOff {
   _GetProjectState call(
       {List<Project> allProjects,
       List<Project> joinProjects,
-      List<Project> myProject}) {
+      List<Project> myProject,
+      List<User> joinUser,
+      Map<int, List<Project>> mapProject,
+      bool meJoined = false}) {
     return _GetProjectState(
       allProjects: allProjects,
       joinProjects: joinProjects,
       myProject: myProject,
+      joinUser: joinUser,
+      mapProject: mapProject,
+      meJoined: meJoined,
     );
   }
 }
@@ -35,6 +41,9 @@ mixin _$GetProjectState {
   List<Project> get allProjects;
   List<Project> get joinProjects;
   List<Project> get myProject;
+  List<User> get joinUser;
+  Map<int, List<Project>> get mapProject;
+  bool get meJoined;
 
   @JsonKey(ignore: true)
   $GetProjectStateCopyWith<GetProjectState> get copyWith;
@@ -48,7 +57,10 @@ abstract class $GetProjectStateCopyWith<$Res> {
   $Res call(
       {List<Project> allProjects,
       List<Project> joinProjects,
-      List<Project> myProject});
+      List<Project> myProject,
+      List<User> joinUser,
+      Map<int, List<Project>> mapProject,
+      bool meJoined});
 }
 
 /// @nodoc
@@ -65,6 +77,9 @@ class _$GetProjectStateCopyWithImpl<$Res>
     Object allProjects = freezed,
     Object joinProjects = freezed,
     Object myProject = freezed,
+    Object joinUser = freezed,
+    Object mapProject = freezed,
+    Object meJoined = freezed,
   }) {
     return _then(_value.copyWith(
       allProjects: allProjects == freezed
@@ -75,6 +90,11 @@ class _$GetProjectStateCopyWithImpl<$Res>
           : joinProjects as List<Project>,
       myProject:
           myProject == freezed ? _value.myProject : myProject as List<Project>,
+      joinUser: joinUser == freezed ? _value.joinUser : joinUser as List<User>,
+      mapProject: mapProject == freezed
+          ? _value.mapProject
+          : mapProject as Map<int, List<Project>>,
+      meJoined: meJoined == freezed ? _value.meJoined : meJoined as bool,
     ));
   }
 }
@@ -89,7 +109,10 @@ abstract class _$GetProjectStateCopyWith<$Res>
   $Res call(
       {List<Project> allProjects,
       List<Project> joinProjects,
-      List<Project> myProject});
+      List<Project> myProject,
+      List<User> joinUser,
+      Map<int, List<Project>> mapProject,
+      bool meJoined});
 }
 
 /// @nodoc
@@ -108,6 +131,9 @@ class __$GetProjectStateCopyWithImpl<$Res>
     Object allProjects = freezed,
     Object joinProjects = freezed,
     Object myProject = freezed,
+    Object joinUser = freezed,
+    Object mapProject = freezed,
+    Object meJoined = freezed,
   }) {
     return _then(_GetProjectState(
       allProjects: allProjects == freezed
@@ -118,13 +144,25 @@ class __$GetProjectStateCopyWithImpl<$Res>
           : joinProjects as List<Project>,
       myProject:
           myProject == freezed ? _value.myProject : myProject as List<Project>,
+      joinUser: joinUser == freezed ? _value.joinUser : joinUser as List<User>,
+      mapProject: mapProject == freezed
+          ? _value.mapProject
+          : mapProject as Map<int, List<Project>>,
+      meJoined: meJoined == freezed ? _value.meJoined : meJoined as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$_GetProjectState implements _GetProjectState {
-  _$_GetProjectState({this.allProjects, this.joinProjects, this.myProject});
+  _$_GetProjectState(
+      {this.allProjects,
+      this.joinProjects,
+      this.myProject,
+      this.joinUser,
+      this.mapProject,
+      this.meJoined = false})
+      : assert(meJoined != null);
 
   @override
   final List<Project> allProjects;
@@ -132,10 +170,17 @@ class _$_GetProjectState implements _GetProjectState {
   final List<Project> joinProjects;
   @override
   final List<Project> myProject;
+  @override
+  final List<User> joinUser;
+  @override
+  final Map<int, List<Project>> mapProject;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool meJoined;
 
   @override
   String toString() {
-    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject)';
+    return 'GetProjectState(allProjects: $allProjects, joinProjects: $joinProjects, myProject: $myProject, joinUser: $joinUser, mapProject: $mapProject, meJoined: $meJoined)';
   }
 
   @override
@@ -150,7 +195,16 @@ class _$_GetProjectState implements _GetProjectState {
                     .equals(other.joinProjects, joinProjects)) &&
             (identical(other.myProject, myProject) ||
                 const DeepCollectionEquality()
-                    .equals(other.myProject, myProject)));
+                    .equals(other.myProject, myProject)) &&
+            (identical(other.joinUser, joinUser) ||
+                const DeepCollectionEquality()
+                    .equals(other.joinUser, joinUser)) &&
+            (identical(other.mapProject, mapProject) ||
+                const DeepCollectionEquality()
+                    .equals(other.mapProject, mapProject)) &&
+            (identical(other.meJoined, meJoined) ||
+                const DeepCollectionEquality()
+                    .equals(other.meJoined, meJoined)));
   }
 
   @override
@@ -158,7 +212,10 @@ class _$_GetProjectState implements _GetProjectState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(allProjects) ^
       const DeepCollectionEquality().hash(joinProjects) ^
-      const DeepCollectionEquality().hash(myProject);
+      const DeepCollectionEquality().hash(myProject) ^
+      const DeepCollectionEquality().hash(joinUser) ^
+      const DeepCollectionEquality().hash(mapProject) ^
+      const DeepCollectionEquality().hash(meJoined);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +227,10 @@ abstract class _GetProjectState implements GetProjectState {
   factory _GetProjectState(
       {List<Project> allProjects,
       List<Project> joinProjects,
-      List<Project> myProject}) = _$_GetProjectState;
+      List<Project> myProject,
+      List<User> joinUser,
+      Map<int, List<Project>> mapProject,
+      bool meJoined}) = _$_GetProjectState;
 
   @override
   List<Project> get allProjects;
@@ -178,6 +238,12 @@ abstract class _GetProjectState implements GetProjectState {
   List<Project> get joinProjects;
   @override
   List<Project> get myProject;
+  @override
+  List<User> get joinUser;
+  @override
+  Map<int, List<Project>> get mapProject;
+  @override
+  bool get meJoined;
   @override
   @JsonKey(ignore: true)
   _$GetProjectStateCopyWith<_GetProjectState> get copyWith;

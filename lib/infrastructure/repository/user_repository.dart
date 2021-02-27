@@ -5,20 +5,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:communitygetandpost/config.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class UserRepository {
   final DatabaseManager databaseManager;
+  final Config config;
 
-  UserRepository(this.databaseManager);
+  UserRepository(this.databaseManager, this.config);
 
   static user.User currentUser;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final TwitterLogin _twitterLogin = TwitterLogin(
-      consumerKey: apiKey,
-      consumerSecret: secretKey);
+  // final TwitterLogin _twitterLogin = config.twitterLogin();
+  // TwitterLogin(
+  //     consumerKey: productApiKey,
+  //     consumerSecret: productSecretKey);
 
   Future<void> signOut() async {
     await _auth.signOut();
@@ -69,7 +72,7 @@ class UserRepository {
   //Twitterサインイン
   Future<bool> signInTwitter() async {
     try {
-      TwitterLoginResult loginResult = await _twitterLogin.authorize();
+      TwitterLoginResult loginResult = await config.twitterLogin().authorize();
       final TwitterSession twitterSession = loginResult.session;
       final auth.AuthCredential twitterAuthCredential =
           auth.TwitterAuthProvider.credential(

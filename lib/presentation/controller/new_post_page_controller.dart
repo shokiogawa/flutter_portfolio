@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:communitygetandpost/infrastructure/repository/user_repository.dart';
+import 'package:communitygetandpost/usecase/read_model/project_category.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:communitygetandpost/domain/value_object/user.dart';
 import 'package:communitygetandpost/infrastructure/repository/project_repository.dart';
@@ -18,7 +19,8 @@ abstract class ProjectState with _$ProjectState {
     File imageFile,
     int participantNumber,
     User hostUser,
-    DateTime projectOpenTime
+    DateTime projectOpenTime,
+    ProjectCategory projectCategory,
   }) = _ProjectState;
 }
 
@@ -27,7 +29,11 @@ class ProjectController extends StateNotifier<ProjectState> {
   final ProjectRepository projectRepository;
 
   ProjectController(this.projectRepository)
-      : super(ProjectState(projectOpenTime: DateTime.now()));
+      : super(ProjectState(projectOpenTime: DateTime.now(), projectCategory: ProjectCategory(id: 0, projectCategoryName: "テクノロジー")));
+
+  void initState(){
+    state = state.copyWith(projectCategory: ProjectCategory(id: 0, projectCategoryName: "テクノロジー"));
+  }
 
 
   //フォームのデータをstateに管理。
@@ -46,6 +52,11 @@ class ProjectController extends StateNotifier<ProjectState> {
     state = state.copyWith(participantNumber: number);
   }
 
+  void getCategory(ProjectCategory category){
+    state = state.copyWith(projectCategory: category);
+    print(state.projectCategory.projectCategoryName);
+  }
+
   //画像を取得。
   Future<void> getImage() async {
     print("getimage");
@@ -57,6 +68,6 @@ class ProjectController extends StateNotifier<ProjectState> {
   Future<void> insertProjectToDb() async {
     projectRepository.insertProjectToDb(
         UserRepository.currentUser, state.projectName, state.projectExplanation,
-        state.imageFile, state.participantNumber, state.projectOpenTime);
+        state.imageFile, state.participantNumber, state.projectOpenTime, state.projectCategory.id);
   }
 }
